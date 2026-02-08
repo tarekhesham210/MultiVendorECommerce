@@ -1,0 +1,25 @@
+﻿@model List<CategoryAttributeVM>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div class="attribute-item mb-3 border p-2">
+        <input asp-for="@Model[i].Name" class="form-control mb-1" />
+
+        @*                         //TODO:after migration
+
+    <select asp-for="@Model[i].Type" class="form-control mb-1">
+            <option value="Text">Text</option>
+            <option value="Number">Number</option>
+            <option value="Boolean">Boolean</option>
+            <option value="FixedSelect">FixedSelect</option>
+            <option value="CustomSelect">CustomSelect</option>
+        </select>
+ *@
+        <label>
+            <input asp-for="@Model[i].IsRequired" /> Required
+        </label>
+
+       
+    </div>
+}
+

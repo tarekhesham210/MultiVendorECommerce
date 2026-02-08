@@ -1,0 +1,349 @@
+﻿@* @model List<CategoryAttributeVM>
+ @for (int i = 0; i < Model.Count; i++)
+{
+    <div class="form-group mb-3">
+        <label class="font-weight-bold">@Model[i].Name</label>
+
+         <input type="hidden" name="FixedAttributesValues[@i].AttributeId" value="@Model[i].Id" />
+
+        @if (Model[i].IsVariant)
+        {
+             <select class="form-control select-multiple-variants variant-attribute-group"
+                    multiple="multiple"
+                    data-placeholder="اختر خيارات الـ @Model[i].Name">
+                @foreach (var option in Model[i].Options)
+                {
+                    <option value="@option.Id">@option.Name</option>
+                }
+            </select>
+            <small class="text-muted">الخيارات المختارة هنا سيتم استخدامها لتوليد الـ Variants بالأسفل.</small>
+        }
+        else
+        { 
+             <select name="FixedAttributesValues[@i].SelectedOptionId" class="form-control">
+                <option value="">-- اختر --</option>
+                @foreach (var option in Model[i].Options)
+                {
+                    <option value="@option.Id"
+                            selected="@(option.Id == Model[i].SelectedOptionId ? "selected" : null)">
+                        @option.Name
+                    </option>
+                }
+            </select>
+        }
+    </div>
+} 
+
+
+  *@
+
+
+
+
+
+
+
+
+
+
+ @model List<CategoryAttributeVM>
+
+<div id="product-attributes-container">
+    <h5 class="mb-3 text-secondary">السمات الأساسية (Fixed Attributes)</h5>
+    @{
+        int fixedIndex = 0;
+    }
+
+    @foreach (var attr in Model.Where(a => !a.IsVariant))
+    {
+        <div class="form-group mb-3 card p-2 shadow-sm">
+            <label class="font-weight-bold">@attr.Name</label>
+            <input type="hidden" name="FixedAttributesValues[@fixedIndex].AttributeId" value="@attr.Id" />
+
+            <select name="FixedAttributesValues[@fixedIndex].SelectedOptionId" class="form-control">
+                <option value="">-- اختر --</option>
+                @foreach (var opt in attr.Options)
+                {
+                    <option value="@opt.Id" >
+                        @opt.Value
+                    </option>
+                }
+            </select>
+        </div>
+        fixedIndex++;
+    }
+</div>
+
+<hr />
+
+ <div class="card p-4 mb-4 bg-light border-info">
+    <h5 class="mb-3 text-info"><i class="fas fa-plus-circle"></i> إضافة نسخ جديدة (New Variations)</h5>
+    <p class="small text-muted">اختر السمات بالأسفل لتوليد مقاسات أو ألوان جديدة لم تكن موجودة:</p>
+
+    @foreach (var attr in Model.Where(a => a.IsVariant))
+    {
+        <div class="variant-attribute-group mb-3" data-attr-id="@attr.Id" data-attr-name="@attr.Name">
+            <label class="font-weight-bold">@attr.Name</label>
+            <select class="form-control select-multiple-variants" multiple="multiple" data-placeholder="اختر قيم الـ @attr.Name">
+                @foreach (var opt in attr.Options)
+                {
+                    <option value="@opt.Id" selected="@(opt.Id == attr.SelectedOptionId ? "selected" : null)">@opt.Value</option>
+                }
+            </select>
+        </div>
+    }
+    <button type="button" id="btnGenerate" class="btn btn-info mt-2">
+        <i class="fas fa-magic"></i> توليد النسخ الجديدة في الجدول
+    </button>
+</div>
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @using PermissionBasedAuz.Shared.Enums
+@model List<CategoryAttributeVM>
+@{
+   // ViewData.TemplateInfo.HtmlFieldPrefix = ViewData["Prefix"]?.ToString();
+}
+
+<div id="product-attributes-container">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var attr = Model[i];
+
+        <!-- Hidden fields for binding -->
+        <input type="hidden" name="Attributes[@i].Id" value="@attr.Id" />
+        <input type="hidden" name="Attributes[@i].Name" value="@attr.Name" />
+        <input type="hidden" name="Attributes[@i].Type" value="@attr.Type" />
+        <input type="hidden" name="Attributes[@i].IsRequired" value="@attr.IsRequired.ToString().ToLower()" />
+
+        @if (attr.Type == CategoryAttributeType.FixedSelect || attr.Type == CategoryAttributeType.CustomSelect)
+        {
+            <div class="d-flex mb-3">
+                <p class="text-dark font-weight-medium mb-0 mr-3">
+                    @attr.Name :
+                    @if (attr.IsRequired)
+                    {
+                        <span class="text-danger">*</span>
+                    }
+                </p>
+
+                <div>
+                    @for (int j = 0; j < attr.Options.Count; j++)
+                    {
+                        var option = attr.Options[j];
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="attr-@i-opt-@j"
+                                   name="Attributes[@i].Values"
+                                   value="@option.Value"
+                                   @(attr.Values.Contains(option.Value) ? "checked" : "") />
+                            <label class="custom-control-label" for="attr-@i-opt-@j">@option.Value</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else if (attr.Type == CategoryAttributeType.Boolean)
+        {
+            <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox"
+                       class="custom-control-input"
+                       id="attr-bool-@i"
+                       name="Attributes[@i].Values"
+                       value="true"
+                       @(attr.Values.Contains("true") ? "checked" : "") />
+                <label class="custom-control-label" for="attr-bool-@i">@attr.Name</label>
+            </div>
+        }
+        else // Text or Number
+        {
+            <div class="mb-3">
+                <label class="text-dark font-weight-medium">
+                    @attr.Name
+                    @if (attr.IsRequired)
+                    {
+                        <span class="text-danger">*</span>
+                    }
+                </label>
+                @{
+                    // 1. نتأكد من النوع
+                    string typeStr = (attr.Type == CategoryAttributeType.Number) ? "number" : "text";
+
+                    // 2. نجيب القيمة بأمان تام
+                    string val = "";
+                    if (attr.Values != null && attr.Values.Count > 0)
+                    {
+                        val = attr.Values[0];
+                    }
+
+                    // 3. نجهز الـ Required كـ String
+                    string reqAttr = attr.IsRequired ? "required='required'" : "";
+                }
+                <span>Debug: Type is @attr.Type and Values count is @(attr.Values?.Count ?? -1)</span>
+                @* استخدمنا HTML خالص هنا ونادينا المتغيرات بـ @ فقط 
+                <input type="@typeStr"
+                       class="form-control"
+                       name="Attributes[@i].Values[0]"
+                       value="@val"
+                       @Html.Raw(reqAttr) />
+            </div>
+        }
+    }
+</div>
+ *@
+
+@* @for (int i = 0; i < Model.Count; i++)
+{
+
+
+    <div class="form-group mb-3">
+        <label>@Model[i].Name</label>
+
+        @switch (Model[i].Type)
+        {
+            case CategoryAttributeType.Text:
+                <input type="text"
+                       asp-for="@Model[i].Value"
+                       class="form-control"
+                       required="@(Model[i].IsRequired)" />
+                break;
+
+            case CategoryAttributeType.Number:
+                <input type="number"
+                       asp-for="@Model[i].Value"
+                       class="form-control"
+                       required="@Model[i].IsRequired" />
+                break;
+
+            case CategoryAttributeType.Boolean:
+                <div class="form-check">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           asp-for="@Model[i].BoolValue" />
+                </div>
+                break;
+
+            case CategoryAttributeType.Select:
+                <select asp-for="@Model[i].Value" class="form-control" selected="@(Model[i].IsRequired ? "required" : null)">
+                    <option value="">-- Select --</option>
+                    @foreach (var option in Model[i].Options)
+                    {
+                        <option value="@option.Value" selected="@(option.Value == Model[i].Value ? "selected" : null)">@option.Value</option>
+                    }
+                </select>
+                break;
+        }
+    </div>
+}
+
+ *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @using PermissionBasedAuz.Shared.Enums
+@model List<CategoryAttributeVM>
+@{
+    ViewData.TemplateInfo.HtmlFieldPrefix = ViewData["Prefix"]?.ToString();
+}
+
+<div id="product-attributes-container">
+@for (int i = 0; i < Model.Count; i++)
+{
+    <input type="hidden" asp-for="@Model[i].Id" value="@Model[i].Id" />
+
+    <div class="form-group mb-3">
+        <label>@Model[i].Name</label>
+
+        @switch (Model[i].Type)
+        {
+            case CategoryAttributeType.Text:
+                <input type="text" 
+                       asp-for="@Model[i].Value" 
+                       class="form-control" 
+                       required="@(Model[i].IsRequired)" />
+                break;
+
+            case CategoryAttributeType.Number:
+                <input type="number" 
+                       asp-for="@Model[i].Value"
+                       class="form-control" 
+                       required="@(Model[i].IsRequired)" />
+                break;
+
+            case CategoryAttributeType.Boolean:
+                <div class="form-check">
+                    <input type="checkbox" 
+                           class="form-check-input" 
+                           asp-for ="@Model[i].Value" 
+                           value="true"/>
+                    <label class="form-check-label">Check</label>
+                </div>
+                break;
+
+            case CategoryAttributeType.Select:
+                    <select asp-for="@Model[i].Value" class="form-control" required="@(Model[i].IsRequired)">
+                    <option value="">-- Select --</option>
+                    @foreach (var option in Model[i].Options)
+                    {
+                        <option value="@option.Value" selected="@(option.Value == Model[i].Value ? "selected" : null)">@option.Value</option>
+                    }
+                </select>
+                break;
+        }
+    </div>
+}
+</div>
+ *@

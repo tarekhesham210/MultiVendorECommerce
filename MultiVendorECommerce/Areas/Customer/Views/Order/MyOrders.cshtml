@@ -1,0 +1,49 @@
+﻿@model IEnumerable<OrdersSummaryVM>
+
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-12 table-responsive mb-5">
+            <h4 class="font-weight-semi-bold mb-4">Orders History</h4>
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Items Count</th>
+                        <th>Status</th>
+                        <th>Total (incl. Shipping)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td class="align-middle">#@order.OrderId</td>
+                            <td class="align-middle">@order.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="align-middle">@order.ItemsCount Items</td>
+                            <td class="align-middle">
+                                <span class="badge @(order.Status == "Pending" ? "badge-warning" : "badge-success")">
+                                    @order.Status
+                                </span>
+                            </td>
+                            <td class="align-middle">$@(order.Total + order.Shipping)</td>
+                            <td class="align-middle">
+                                <a asp-action="OrderDetails" asp-route-id="@order.OrderId" class="btn btn-sm btn-primary">
+                                    View Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <p>You haven't placed any orders yet.</p>
+                    <a href="/Shop" class="btn btn-primary">Start Shopping</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

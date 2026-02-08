@@ -1,0 +1,124 @@
+﻿@using PermissionBasedAuz.ViewModels
+@model EditUserDataVM
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+
+<form asp-action="EditProfile"
+      asp-controller="User"
+      asp-area="Auth"
+      method="post"
+      enctype="multipart/form-data">
+
+    <input hidden asp-for="Id" />
+
+    <div class="form-group text-center">
+
+        <div class="position-relative d-inline-block">
+            <img src="@ImageSettings.GetImageUrl(ImageSettings.UsersImagesFolder, Model.currentImage)"
+                 class="rounded-circle"
+                 width="150"
+                 height="150"
+                 style="object-fit: cover;"
+                 id="profilePreview" />
+
+            <label for="imageInput" id="profileImagePreview"
+                   class="position-absolute bottom-0 end-0 bg-light border rounded-circle d-flex justify-content-center align-items-center shadow"
+                   style="width:40px;height:40px;cursor:pointer;">
+                <i class="bi bi-pencil-fill text-dark"></i>
+            </label>
+        </div>
+
+        <input type="file" id="imageInput"
+               asp-for="Image"
+               class="d-none"
+               data-val-extension="@ImageSettings.AllowedExtensions.Replace(".", string.Empty)"
+               data-msg-extension="Not allowed extension"
+               data-val-filesize="@ImageSettings.MaxFileSizeInBytes"
+               data-val-filesize="Maximum allowed size is @ImageSettings.MaxFileSizeInMB MB" />
+
+        <span asp-validation-for="Image"
+              class="text-danger d-block mt-2"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4">
+        Save Changes
+    </button>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script >
+                 const fileInput = document.getElementById("imageInput");
+        const preview = document.getElementById("profilePreview");
+
+        fileInput.addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                preview.src = URL.createObjectURL(this.files[0]);
+            }
+        });
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @using PermissionBasedAuz.ViewModels
+@model EditUserDataVM
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+<h2>Edit Profile</h2>
+<form asp-action="EditProfile" asp-controller="User" method="post" enctype="multipart/form-data">
+    <input hidden asp-for="Id"/>
+    <div class="form-group">
+        <img src="@($"{ImageSettings.UsersImagesPath}/{Model.currentImage}")" class="rounded-circle me-2"
+             width="150"
+             height="150" alt="Alternate Text" />
+        <div class="form-group">
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+   
+        <label asp-for="Image" class="form-label mt-4"></label>
+        <input type="file" class="form-control" asp-for="Image"
+               data-val-extension="@ImageSettings.AllowedExtensions.Replace(".", string.Empty)"
+               data-msg-extension="Not allowed extension"
+               data-val-filesize="@ImageSettings.MaxFileSizeInBytes"
+               data-val-filesize="Maximum allowed size is @ImageSettings.MaxFileSizeInMB MB">
+        <small class="form-text text-muted">Only @ImageSettings.AllowedExtensions files are allowed with max size @(ImageSettings.MaxFileSizeInMB)MB.</small>
+        <span asp-validation-for="Image" class="text-danger d-block"></span>
+    </div>
+       
+
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+</form>
+ *@

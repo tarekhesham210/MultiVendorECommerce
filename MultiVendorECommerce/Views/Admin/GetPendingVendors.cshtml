@@ -1,0 +1,44 @@
+﻿@using PermissionBasedAuz.ViewModels
+@model IEnumerable<VendorUserVM>
+
+    @{
+    ViewData["Title"] = "Vendors List";
+}
+<h1 class="text-center">Vendors List</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Vendor Name</th>
+            <th>Vendor Email</th>
+            <th>Vendor StoreName</th>
+            <th>Vendor IsApproved</th>
+            <th>Vendor CreatedAt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendor in Model)
+        {
+            <tr>
+                <td>@vendor.Name</td>
+                <td>@vendor.Email</td>
+                <td>@vendor.StoreName</td>
+                <td>@vendor.CreatedAt</td>
+                <td>@vendor.vendorStatus</td>
+              
+                <td>
+                    <form asp-action="ApproveVendor" asp-controller="Admin"
+                        asp-route-id="@vendor.Id"   asp-route-userId="@vendor.userId"  class="d-inline" >
+                       
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form asp-action="RejectVendor" asp-controller="Admin"
+                          asp-route-id="@vendor.Id" class="d-inline" onsubmit="return confirm('Are you sure you want to reject this vendor request?');">
+
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table>

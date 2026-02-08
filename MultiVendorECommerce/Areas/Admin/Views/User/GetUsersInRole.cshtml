@@ -1,0 +1,40 @@
+﻿@using PermissionBasedAuz.Shared.Enums
+@model UsersInRoleVM
+@{
+    ViewData["Title"] = "Users in Role";
+}
+<h2>Users in Role: @Model.RoleName</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Userstatus.ToString()</td>
+                <td>
+                    <a asp-area="Admin" asp-action="UpdateUserRoles" asp-route-id="@user.Id" class="btn btn-primary">Manage Roles</a>
+                    @if (user.Userstatus == Userstatus.Suspended)
+                    {
+                        <form class="d-inline" asp-action="ActivateUser" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-primary ">Activate</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="d-inline" asp-action="SuspendUser" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-danger ">Suspend</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

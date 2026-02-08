@@ -1,0 +1,228 @@
+﻿@model EditProductVM
+<form asp-action="EditProduct" method="post" id="mainForm" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="CategoryId"  />
+    <div asp-validation-summary="All"></div>
+    <div class="card mb-3">
+        <div class="card-header bg-dark text-white">Basic Information</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Product Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter product name..." />
+                </div>
+                <div class="col-md-12">
+                    <label>Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="card p-4 mb-4">
+                    <h4>Product Images</h4>
+                    <div class="images-grid d-flex flex-wrap gap-3 mb-3">
+                        @for (int i = 0; i < Model.ExistingImages.Count; i++)
+                        {
+                            <div class="image-box border p-2 text-center" style="width:150px">
+                                <img src="@ImageSettings.GetImageUrl(ImageSettings.ProudctsImagesFolder, Model.ExistingImages[i].ImageUrl)"
+                                     id="preview-@i" class="img-thumbnail mb-2" style="height:120px; width:100%; object-fit:cover" />
+
+                                <input type="hidden" asp-for="ExistingImages[i].Id" />
+                                <input type="hidden" asp-for="ExistingImages[i].ImageUrl" />
+
+                                <div class="small">
+                                    <label class="text-danger"><input type="checkbox" asp-for="ExistingImages[i].MarkForDelete" /> Delete</label>
+                                    <label class="btn btn-xs btn-link p-0">
+                                        Change
+                                        <input type="file" asp-for="ExistingImages[i].NewImage" data-preview="preview-@i" class="d-none image-input" />
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Add New Images</label>
+                        <input asp-for="NewImages" type="file" class="form-control" multiple />
+                    </div>
+            </div>
+    </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-header bg-secondary text-white">Fixed Attributes</div>
+        <div class="card-body row">
+            @for (int i = 0; i < Model.FixedAttributesValues.Count; i++)
+            {
+                <div class="col-md-4 mb-3">
+                    <label>@Model.FixedAttributesValues[i].AttributeName</label>
+                    <input type="hidden" name="FixedAttributesValues[@i].AttributeId" value="@Model.FixedAttributesValues[i].AttributeId" />
+                    <select name="FixedAttributesValues[@i].SelectedOptionId" class="form-control">
+                        <option value="">-- No Value --</option>
+                        @foreach (var opt in Model.FixedAttributesValues[i].Options)
+                        {
+                            <option value="@opt.Id" selected="@(opt.Id == Model.FixedAttributesValues[i].SelectedOptionId ? "selected" : null)">
+                                @opt.Value
+                            </option>
+                        }
+                    </select>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="card mb-3 border-info">
+        <div class="card-header bg-info text-white">Variant Dimensions</div>
+        <div class="card-body">
+            <p class="small text-muted">Enable the attributes that define your variations (e.g., Color, Size):</p>
+            <div class="d-flex gap-4">
+                @for (int i = 0; i < Model.Dimensions.Count; i++)
+                {
+                    <div class="form-check border p-2 rounded">
+                        <input type="checkbox" class="form-check-input dimension-toggle" 
+                               data-attr-id="@Model.Dimensions[i].AttributeId" 
+                               data-attr-name="@Model.Dimensions[i].AttributeName"
+                               asp-for="Dimensions[i].IsActive" />
+                        <label class="form-check-label">@Model.Dimensions[i].AttributeName</label>
+                        <input type="hidden" asp-for="Dimensions[i].AttributeId" />
+                        <input type="hidden" asp-for="Dimensions[i].AttributeName" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="m-0">Variants List</h5>
+            <button type="button" id="btnAddRow" class="btn btn-primary btn-sm">+ Add New Variant Row</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped" id="variantsTable">
+                <thead class="table-dark">
+                    <tr id="headerRow">
+                        </tr>
+                </thead>
+                <tbody id="variantsBody">
+                    @for (int i = 0; i < Model.Variants.Count; i++)
+                    {
+                        <tr class="variant-row" data-index="@i">
+                            <input type="hidden" name="Variants[@i].Id" value="@Model.Variants[i].Id" />
+                            @foreach (var dim in Model.Dimensions.Where(d => d.IsActive))
+                            {
+                                <td>
+                                    <select name="Variants[@i].SelectedOptionIds" class="form-control shadow-sm">
+                                        @foreach (var opt in dim.AllowableOptions)
+                                        {
+                                            <option value="@opt.Id" selected="@(Model.Variants[i].SelectedOptionIds.Contains(opt.Id) ? "selected" : null)">
+                                                @opt.Value
+                                            </option>
+                                        }
+                                    </select>
+                                </td>
+                            }
+                            <td><input name="Variants[@i].Price" value="@Model.Variants[i].Price" class="form-control" type="number" step="0.01" /></td>
+                            <td><input name="Variants[@i].StockQuantity" value="@Model.Variants[i].StockQuantity" class="form-control" type="number" /></td>
+                            <td><input name="Variants[@i].SKU" value="@Model.Variants[i].SKU" class="form-control" /></td>
+                                <td>
+                                    <input name="Variants[@i].SKU" value="@Model.Variants[i].SKU" class="form-control mb-2" />
+
+                                    <div class="form-check small">
+                                        <input type="checkbox" class="form-check-input offer-toggle" id="offer_@i"
+                                               name="Variants[@i].HasOffer" value="true" @(Model.Variants[i].HasOffer ? "checked" : "") />
+                                        <label class="form-check-label" for="offer_@i">Apply Offer?</label>
+                                    </div>
+
+                                    <div class="offer-fields mt-2 p-2 border rounded bg-light" style="display: @(Model.Variants[i].HasOffer ? "block" : "none")">
+                                        <input name="Variants[@i].DiscountPercentage" value="@Model.Variants[i].DiscountPercentage" class="form-control form-control-sm mb-1" placeholder="Discount %" type="number" />
+                                        <input name="Variants[@i].StartDate" value="@(Model.Variants[i].StartDate?.ToString("yyyy-MM-dd"))" class="form-control form-control-sm mb-1" type="date" />
+                                        <input name="Variants[@i].EndDate" value="@(Model.Variants[i].EndDate?.ToString("yyyy-MM-dd"))" class="form-control form-control-sm" type="date" />
+                                    </div>
+                                </td>
+                            <td><button type="button" class="btn btn-outline-danger btn-sm remove-row">Remove</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-lg w-100 mt-4">Save All Changes</button>
+
+</div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        let rowIndex = @Model.Variants.Count;
+        const dimensionSchema = @Html.Raw(Json.Serialize(Model.Dimensions));
+
+        $(document).ready(function() {
+            renderHeaders();
+
+            $(".dimension-toggle").on("change", function() {
+                renderHeaders();
+                alert("Dimensions updated. Rows might need manual value selection.");
+            });
+                $(document).on("change", ".offer-toggle", function() {
+                    const container = $(this).closest("td").find(".offer-fields");
+                    if (this.checked) {
+                        container.slideDown(200);
+                    } else {
+                        container.slideUp(200);
+                        // Optional: Clear fields on uncheck
+                        container.find("input").val("");
+                    }
+                });
+            $("#btnAddRow").click(function() {
+                let row = `<tr class="variant-row">`;
+
+                // Add Dropdowns for active dimensions only
+                $(".dimension-toggle:checked").each(function() {
+                    let attrId = $(this).data("attr-id");
+                    let dim = dimensionSchema.find(d => d.attributeId == attrId);
+                    
+                    row += `<td><select name="Variants[${rowIndex}].SelectedOptionIds" class="form-control border-primary" required>`;
+                    row += `<option value="">-- Select --</option>`;
+                    dim.allowableOptions.forEach(opt => {
+                        row += `<option value="${opt.id}">${opt.value}</option>`;
+                    });
+                    row += `</select></td>`;
+                });
+               let CategoryId = $("#CategoryId").val();
+               let generatedSKU = "SKU-" + CategoryId + "-" + Math.random().toString(36).substring(7).toUpperCase();
+
+                row += `
+                    <td><input name="Variants[${rowIndex}].Price" class="form-control" type="number" step="0.01" required /></td>
+                    <td><input name="Variants[${rowIndex}].StockQuantity" class="form-control" type="number" required /></td>
+                    <td><input name="Variants[${rowIndex}].SKU" class="form-control" value="${generatedSKU}" placeholder="Optional" /></td>
+                    <td>
+                    <div class="form-check small">
+                        <input type="checkbox" class="form-check-input offer-toggle" id="new_offer_${rowIndex}" name="Variants[${rowIndex}].HasOffer" value="true" />
+                        <label class="form-check-label" for="new_offer_${rowIndex}">Apply Offer?</label>
+                    </div>
+                    <div class="offer-fields mt-2 p-2 border rounded bg-light" style="display: none">
+                        <input name="Variants[${rowIndex}].DiscountPercentage" class="form-control form-control-sm mb-1" placeholder="Discount %" type="number" />
+                        <input name="Variants[${rowIndex}].StartDate" class="form-control form-control-sm mb-1" type="date" />
+                        <input name="Variants[${rowIndex}].EndDate" class="form-control form-control-sm" type="date" />
+                    </div>
+                    </td>
+                    <td><button type="button" class="btn btn-danger btn-sm remove-row">Delete</button></td>
+                </tr>`;
+
+                $("#variantsBody").append(row);
+                rowIndex++;
+            });
+
+            $(document).on("click", ".remove-row", function() {
+                $(this).closest("tr").fadeOut(300, function() { $(this).remove(); });
+            });
+        });
+
+        function renderHeaders() {
+            const header = $("#headerRow");
+            header.empty();
+            $(".dimension-toggle:checked").each(function() {
+                header.append(`<th>${$(this).data("attr-name")}</th>`);
+            });
+            header.append(`<th>Price</th><th>StockQuantity</th><th>SKU</th><th>Actions</th>`);
+        }
+    </script>
+}

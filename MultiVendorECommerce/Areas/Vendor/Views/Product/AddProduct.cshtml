@@ -1,0 +1,321 @@
+﻿@model AddProductVM
+
+<form asp-action="AddProduct"
+      asp-controller="Product"
+      asp-area="Vendor"
+      method="post"
+      enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    
+    <input hidden asp-for="@Model.CategoryId" />
+    
+    <div class= "form-group mb-3">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+   
+    <div class="form-group mb-3">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="ProductImages"></label>
+        <input id="galleryUpload" name="ProductImages" @* asp-for="ProductImages" *@
+               type="file"
+               multiple
+               class="form-control" accept="@ImageSettings.AllowedExtensions" />
+        <div id="galleryPreview" class="d-flex flex-wrap gap-2 mt-3">
+        </div>
+        <span asp-validation-for="ProductImages" class="text-danger"></span>
+    </div>
+    <partial name="_ProductAttributesPartial"
+            model="@Model.AvailableAttributes"
+            view-data="ViewData" />
+
+    <div id="variantsContainer" class="mt-4" style="display:none;">
+        <h5 class="text-primary">Generated Variants</h5>
+        <table class="table table-bordered" id="variantsTable">
+            <thead class="bg-light">
+                <tr id="headerRow">
+                    <th>Image</th>
+                    <th>Variant</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>SKU & Offers</th>
+                </tr>
+            </thead>
+            <tbody id="variantsBody">
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Add Product
+    </button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+        let uploadedFilesCount = 0;
+
+        // 1. عند اختيار صور المعرض (Gallery)
+        $("#galleryUpload").on("change", function () {
+            const previewContainer = $("#galleryPreview");
+            previewContainer.empty();
+            const files = this.files;
+            uploadedFilesCount = files.length;
+
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewContainer.append(`
+    <div class="text-center border p-1 rounded" style="width: 80px; position: relative;">
+        <img src="${e.target.result}" class="img-thumbnail" style="height: 60px; width: 60px; object-fit: cover;" />
+        <div class="small fw-bold mt-1">#${i + 1}</div>
+    </div>
+                    `);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+
+            // تحديث كل الـ Dropdowns اللي موجودة في الجدول حالياً بالصور الجديدة
+            updateAllVariantImageSelectors();
+}
+);
+
+    // دالة بتولد خيارات الـ Dropdown بناءً على عدد الصور المرفوعة
+    function getImageOptionsHtml() {
+        let options = `
+<option value="">Choose Image</option>`;
+        for (let i = 0; i < uploadedFilesCount; i++) {
+            options += `
+<option value="${i}">Image #${i + 1}</option>`;
+        }
+        return options;
+    }
+
+    // دالة لتحديث الـ Selectors لو التاجر غير الصور بعد ما ولد الجدول
+    function updateAllVariantImageSelectors() {
+        $(".variant-image-select").each(function() {
+            const currentVal = $(this).val();
+            $(this).html(getImageOptionsHtml());
+            $(this).val(currentVal);
+        });
+    }
+
+    // 2. Initialize Select2
+    if ($.fn.select2) {
+        $('.select-multiple-variants').select2({
+            placeholder: "Select options...",
+            width: '100%'
+        });
+    }
+
+    // 3. زرار توليد النسخ (Generate)
+    $("#btnGenerate").on("click", function () {
+        let attributeSets = [];
+        let categoryId = $("#CategoryId").val();
+
+        $(".variant-attribute-group").each(function () {
+            let options = $(this).find("select option:selected").map(function () {
+                return { id: $(this).val(), text: $(this).text() };
+            }).get();
+            if (options.length > 0) attributeSets.push(options);
+        });
+
+        if (attributeSets.length === 0) {
+            alert("Please select at least one attribute option.");
+            return;
+        }
+
+        let combinations = attributeSets.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+        let tbody = $("#variantsBody");
+        tbody.empty();
+
+        combinations.forEach((combo, vIndex) => {
+            let currentCombo = Array.isArray(combo) ? combo : [combo];
+            let comboNames = currentCombo.map(c => c.text).join(" - ");
+            let generatedSKU = "SKU-" + categoryId + "-" + Math.random().toString(36).substring(7).toUpperCase();
+
+            let hiddenOptions = currentCombo.map((opt, oIndex) =>
+                `
+<input type="hidden" name="CreatedVariants[${vIndex}].SelectedOptionIds[${oIndex}]" value="${opt.id}" />`
+            ).join("");
+
+            // هنا بنضيف الـ Dropdown بتاع اختيار الصورة في أول خلية <td>
+    let row = `
+    <tr>
+        <td>
+                    <select name="CreatedVariants[${vIndex}].SelectedImageId" class="form-control form-control-sm variant-image-select">
+                ${getImageOptionsHtml()}
+            </select>
+        </td>
+        <td>
+            <strong class="text-primary">${comboNames}</strong>
+            ${hiddenOptions}
+        </td>
+        <td><input name="CreatedVariants[${vIndex}].Price" class="form-control" type="number" step="0.01" required /></td>
+        <td><input name="CreatedVariants[${vIndex}].StockQuantity" class="form-control" type="number" required /></td>
+        <td>
+            <input name="CreatedVariants[${vIndex}].SKU" value="${generatedSKU}" class="form-control mb-1" type="text" />
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input has-offer-btn"
+                       id="chk-${vIndex}"
+                       data-target="offer-div-${vIndex}"
+                       name="CreatedVariants[${vIndex}].HasOffer" value="true">
+                <input type="hidden" name="CreatedVariants[${vIndex}].HasOffer" value="false" />
+                <label class="form-check-label" for="chk-${vIndex}">Set Offer?</label>
+            </div>
+            <div id="offer-div-${vIndex}" class="mt-2 p-2 border border-warning" style="display:none; background:#fffcf5;">
+                <input name="CreatedVariants[${vIndex}].DiscountPercentage" placeholder="Discount %" class="form-control mb-1" type="number" />
+                <input name="CreatedVariants[${vIndex}].StartDate" class="form-control mb-1" type="date" />
+                <input name="CreatedVariants[${vIndex}].EndDate" class="form-control" type="date" />
+            </div>
+        </td>
+    </tr>`;
+    tbody.append(row);
+    });
+
+    $("#variantsContainer").fadeIn();
+    });
+
+    // Handle Offer Toggle
+    $(document).on('change', '.has-offer-btn', function () {
+    let targetId = $(this).data('target');
+    if (this.checked) {
+    $(`#${targetId}`).slideDown();
+    } else {
+    $(`#${targetId}`).slideUp();
+    $(`#${targetId} input`).val('');
+    }
+    });
+    });
+
+    </script>
+
+  @*   <script>
+                $(document).ready(function () {
+
+                    $("#galleryUpload").on("change", function () {
+        const previewContainer = $("#galleryPreview");
+        previewContainer.empty();
+        const files = this.files;
+        uploadedFilesCount = files.length;
+
+        // Create Preview Thumbnails
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewContainer.append(`
+                    <div class="text-center border p-1 rounded" style="width: 80px;">
+                        <img src="${e.target.result}" class="img-thumbnail" style="height: 60px; object-fit: cover;"/>
+                        <div class="small fw-bold mt-1">#${i + 1}</div>
+                    </div>
+                `);
+            };
+            reader.readAsDataURL(files[i]);
+            };
+            });
+          
+            // Initialize Select2
+            if ($.fn.select2) {
+                $('.select-multiple-variants').select2({
+                    placeholder: "Select options...",
+                    width: '100%'
+                });
+            }
+
+            $("#btnGenerate").on("click", function () {
+                let attributeSets = [];
+                let categoryId = $("#CategoryId").val();
+
+                // 1. Collect data from selected dropdowns
+                $(".variant-attribute-group").each(function () {
+                    let options = $(this).find("select option:selected").map(function () {
+                        return { id: $(this).val(), text: $(this).text() };
+                    }).get();
+                    if (options.length > 0) attributeSets.push(options);
+                });
+
+                if (attributeSets.length === 0) {
+                    alert("Please select at least one attribute option.");
+                    return;
+                }
+
+                // 2. Cartesian Product logic
+                let combinations = attributeSets.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+
+                let tbody = $("#variantsBody");
+                tbody.empty(); // Clear previous generation
+
+                // 3. Generate Rows
+                combinations.forEach((combo, vIndex) => {
+                    let currentCombo = Array.isArray(combo) ? combo : [combo];
+                    let comboNames = currentCombo.map(c => c.text).join(" - ");
+                    let generatedSKU = "SKU-" + categoryId + "-" + Math.random().toString(36).substring(7).toUpperCase();
+
+                    let hiddenOptions = currentCombo.map((opt, oIndex) =>
+                        `<input type="hidden" name="CreatedVariants[${vIndex}].SelectedOptionIds[${oIndex}]" value="${opt.id}" />`
+                    ).join("");
+
+                    let row = `
+                        <tr>
+                            <td>
+                                <strong class="text-primary">${comboNames}</strong>
+                                ${hiddenOptions}
+                            </td>
+                            <td><input name="CreatedVariants[${vIndex}].Price" class="form-control" type="number" step="0.01" required /></td>
+                            <td><input name="CreatedVariants[${vIndex}].StockQuantity" class="form-control" type="number" required /></td>
+                            <td>
+                                <input name="CreatedVariants[${vIndex}].SKU" value="${generatedSKU}" class="form-control mb-1" type="text" />
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input has-offer-btn"
+                                           id="chk-${vIndex}"
+                                           data-target="offer-div-${vIndex}"
+                                           name="CreatedVariants[${vIndex}].HasOffer" value="true">
+                                    <input type="hidden" name="CreatedVariants[${vIndex}].HasOffer" value="false" />
+                                    <label class="form-check-label" for="chk-${vIndex}">Set Offer?</label>
+                                </div>
+                                <div id="offer-div-${vIndex}" class="mt-2 p-2 border border-warning" style="display:none; background:#fffcf5;">
+                                    <input name="CreatedVariants[${vIndex}].DiscountPercentage" placeholder="Discount %" class="form-control mb-1" type="number" />
+                                    <input name="CreatedVariants[${vIndex}].StartDate" class="form-control mb-1" type="date" />
+                                    <input name="CreatedVariants[${vIndex}].EndDate" class="form-control" type="date" />
+                                </div>
+                            </td>
+                        </tr>`;
+                    tbody.append(row);
+                });
+
+                // 4. Show the container
+                $("#variantsContainer").fadeIn();
+            });
+
+            // Handle Offer Toggle
+            $(document).on('change', '.has-offer-btn', function () {
+                let targetId = $(this).data('target');
+                if (this.checked) {
+                    $(`#${targetId}`).slideDown();
+                } else {
+                    $(`#${targetId}`).slideUp();
+                    $(`#${targetId} input`).val('');
+                }
+            });
+        });
+    </script> *@
+}
+
+
+
+
+
+
+
+
+

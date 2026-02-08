@@ -1,0 +1,8 @@
+﻿namespace PermissionBasedAuz.Areas.Admin.ViewModels
+{
+    public class CategoryAttributeOptionVM
+    {
+        public int Id { get; set; }
+        public string Value { get; set; }
+    }
+}

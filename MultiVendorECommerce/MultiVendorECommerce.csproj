@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Customer\Views\Shared\Components\Header\_SlidbarShow.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Storage\Uploads\UsersImages\092569ac-d5d1-4b69-8cda-9cd712bb1f7c.png" />
+    <Content Include="Storage\Uploads\UsersImages\1bb26549-c812-42dd-86ba-06b75ecb0667.png" />
+    <Content Include="Storage\Uploads\UsersImages\5510f5b1-979a-4384-bc9c-b5491d8d4612.png" />
+    <Content Include="Storage\Uploads\UsersImages\565b8393-e9f1-4ff6-b048-d28d20e6cf43.png" />
+    <Content Include="Storage\Uploads\UsersImages\5b8f171f-fed5-415e-865a-0b6111c9c959.png" />
+    <Content Include="Storage\Uploads\UsersImages\64c3ab52-98b8-41fa-affa-3163ff8af15f.png" />
+    <Content Include="Storage\Uploads\UsersImages\67255d66-4cde-43ce-87af-5a8dffbc2ccf.png" />
+    <Content Include="Storage\Uploads\UsersImages\68507067-506b-4486-ab1b-72915aea6405.png" />
+    <Content Include="Storage\Uploads\UsersImages\6cd79538-6343-4bd7-bd62-cee243ed9e1e.png" />
+    <Content Include="Storage\Uploads\UsersImages\6f938cca-f116-4d61-b725-adbb71721bed.png" />
+    <Content Include="Storage\Uploads\UsersImages\747e4168-d562-46f6-8c1d-63d6a4f42bb2.png" />
+    <Content Include="Storage\Uploads\UsersImages\76aac7d2-8015-40e5-b164-add8cb323d78.png" />
+    <Content Include="Storage\Uploads\UsersImages\7f793b0e-b154-4fd9-a186-6a08b5d8344d.png" />
+    <Content Include="Storage\Uploads\UsersImages\87535d7d-f586-4a19-a0e5-5413a69228fc.png" />
+    <Content Include="Storage\Uploads\UsersImages\951afff1-5e85-42de-b314-c8e31d24ce0c.png" />
+    <Content Include="Storage\Uploads\UsersImages\995f5796-1e57-4a19-9b8c-7264822d9790.png" />
+    <Content Include="Storage\Uploads\UsersImages\9b62fe54-06f7-46a1-9525-aecd2ce4dd7e.png" />
+    <Content Include="Storage\Uploads\UsersImages\9ce04c03-1fec-4397-ad23-7f11c3071b53.png" />
+    <Content Include="Storage\Uploads\UsersImages\9fd8740a-0a0d-4638-82b7-2c7aa6e7138a.png" />
+    <Content Include="Storage\Uploads\UsersImages\a3b5b0aa-fdce-4d9f-a1ad-f086527c4bce.png" />
+    <Content Include="Storage\Uploads\UsersImages\ab184fc5-7a07-4433-9849-6230389a0d7e.png" />
+    <Content Include="Storage\Uploads\UsersImages\b271d24f-3a7e-4063-89be-f7cd297a2b2b.png" />
+    <Content Include="Storage\Uploads\UsersImages\db626e58-0c16-4d1d-9913-bebbc8d87a2b.png" />
+    <Content Include="Storage\Uploads\UsersImages\e033da09-3731-4118-941c-2ffaef85b6d8.png" />
+    <Content Include="Storage\Uploads\UsersImages\e6d9a3d7-3a1c-458e-9ec5-02b68a600b81.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.36" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.36" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.36">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Auth\ViewModels\" />
+    <Folder Include="Storage\Uploads\CategoriesImages\" />
+    <Folder Include="Storage\Uploads\UsersImages\" />
+  </ItemGroup>
+
+</Project>

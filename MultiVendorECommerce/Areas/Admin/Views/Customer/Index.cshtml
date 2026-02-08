@@ -1,0 +1,46 @@
+﻿@model List<CustomerVM>
+@{
+    ViewData["Title"] = "Customer Management";
+}
+<h1>Customer Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Full Name</th>
+            <th>Created At</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.Email</td>
+                <td>@customer.FullName</td>
+                <td>@customer.CreatedAt</td>
+                <td>@(customer.Phone = customer.Phone==null ? "N/A" :customer.Phone)</td>
+                <td>@customer.Status.ToString()</td>
+                <td>
+                    @if (customer.Status == CustomerStatus.Active)
+                    {
+                        <form class="d-inline" asp-action="BlockCustomer" asp-route-id="@customer.Id">
+                            <button type="submit" class="btn btn-danger" >Block</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="d-inline" asp-action="ActivateCustomer" asp-route-id="@customer.Id">
+                            <button type="submit" class="btn btn-primary">Activate</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+  

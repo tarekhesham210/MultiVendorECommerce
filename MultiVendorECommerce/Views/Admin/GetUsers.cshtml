@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<ApplicationUser>
+@inject UserManager<ApplicationUser> userManager
+@{
+    ViewData["Title"] = "Users";
+}
+<h2>Internal Users</h2>
+<a asp-action="AddInternalUser" class="btn btn-success mb-3">Create New User</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-action="UserRoles" asp-route-id="@user.Id" class="btn btn-primary">Manage Roles</a>
+                    @if(await userManager.IsLockedOutAsync(user))
+                    {
+                        <form class="d-inline" asp-action="ActivateUser" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-primary ">Activate</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="d-inline" asp-action="SuspendUser" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-danger " >Suspend</button>
+                        </form>
+ 
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

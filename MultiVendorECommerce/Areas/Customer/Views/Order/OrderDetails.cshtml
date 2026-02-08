@@ -1,0 +1,51 @@
+﻿@model OrderDetailsVM
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Order #@Model.Id Details</h5>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <h6>Shipping To:</h6>
+                 <strong>@Model.CustomerName</strong><br>
+               Adress: @Model.ShippingAddress<br>
+                 Mobile: @Model.Phone
+            </div>
+            <div class="col-sm-6 text-right">
+                <h6>Order Info:</h6>
+                Order Status: <span class="badge badge-info">@Model.OrderStatus.ToString()</span><br>
+                Payment Status: <span class="badge badge-warning">@Model.PaymentStatus.ToString()</span><br>
+                Payment Method: <span class="badge badge-warning">@Model.PaymentMethod.ToString()</span><br>
+                Date: @Model.OrderDate.ToString("dd/MM/yyyy")
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                         <td>@item.ProductName</td>
+                        <td>$@item.Price</td>
+                        <td>@item.Quantity</td>
+                        <td>$@(item.Price* item.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-right">Grand Total:</th>
+                    <th>$@Model.GrandTotal</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+﻿@* _ErrorMessage.cshtml *@
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="d-inline  text-danger ">
+        <h2>@TempData["ErrorMessage"]</h2>
+    </div>
+}

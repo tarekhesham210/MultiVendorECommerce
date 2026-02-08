@@ -1,0 +1,37 @@
+﻿@model List<VendorUserVM>
+@{
+    ViewData["Title"] = "Rejected Vendors";
+}
+<h1 class="text-center">Rejected Vendors</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Vendor Name</th>
+            <th>Vendor Email</th>
+            <th>Vendor StoreName</th>
+            <th>Vendor CreatedAt</th>
+            <th>Vendor Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendor in Model)
+        {
+            <tr>
+                <td>@vendor.Name</td>
+                <td>@vendor.Email</td>
+                <td>@vendor.StoreName</td>
+                <td>@vendor.CreatedAt</td>
+                <td>@vendor.vendorStatus</td>
+                <td>
+                    <form asp-area="Admin" asp-action="ApproveVendor" asp-controller="Admin"
+                          asp-route-id="@vendor.Id" asp-route-userId="@vendor.userId" class="d-inline" onsubmit="return confirm('Are you sure you want to approve this vendor request?');">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

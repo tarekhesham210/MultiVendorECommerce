@@ -1,0 +1,296 @@
+﻿@using PermissionBasedAuz.Shared.Enums
+@model ProductDetailsVM
+
+
+<form asp-action="AddToCart" asp-controller="Cart" method="post" id="addToCartForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="selectedVariantId" name="VariantId" value="" />
+    <input type="hidden" name="ProductId" value="@Model.Id" />
+
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 pb-5">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner border">
+                        @for (int i = 0; i < Model.GalleryImages.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <img id="main-display-image" class="w-100 h-100"
+                                     src="@ImageSettings.GetImageUrl(ImageSettings.ProudctsImagesFolder, Model.GalleryImages[i])"
+                                     alt="Image">
+                            </div>
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 pb-5">
+                <h3 class="font-weight-semi-bold">@Model.Name</h3>
+                <p class="text-muted small">Category: @Model.CategoryName</p>
+
+                 <div class="d-flex align-items-baseline mb-4">
+                    <h3 id="current-price" class="font-weight-semi-bold mb-0 text-primary">--</h3>
+                </div>
+                <div id="offer-section" style="display: none;">
+                <h3 id="old-price" class="text-muted ml-2"><del></del></h3>
+                <span id="discount-badge" class="badge badge-danger ml-1 mb-3"></span>
+                </div>
+                          
+                 <p class="mb-4">@Model.Description</p>
+
+                @foreach (var attr in Model.SelectionAttributes)
+                {
+                    <div class="d-flex mb-3 align-items-center">
+                        <p class="text-dark font-weight-medium mb-0 mr-3">@attr.Name:</p>
+                        <div class="d-flex flex-wrap">
+                            @foreach (var val in attr.Values)
+                            {
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio"
+                                           id="attr-@attr.AttributeId-@val.Id"
+                                           name="Attr_@attr.AttributeId"
+                                           class="custom-control-input variant-selector"
+                                           data-attr-id="@attr.AttributeId"
+                                           data-val-id="@val.Id"
+                                           @(Model.InitialSelectedIds.Contains(val.Id) ? "checked" : "")
+                                           required>
+                                    <label class="custom-control-label" for="attr-@attr.AttributeId-@val.Id">@val.Value</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="d-flex align-items-baseline mb-4">
+                    <h3 id="current-price" class="font-weight-semi-bold mb-0 text-primary"></h3>
+
+              @*       <div id="offer-section" class="ml-2" style="display:none;">
+                        <h5 class="text-muted mb-0" id="old-price"><del></del></h5>
+                        <span id="discount-badge" class="badge badge-danger ml-1"></span>
+                    </div> *@
+                </div>
+
+                <div id="stock-message" class="mb-3"></div>
+
+                <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-minus">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <input type="text" id="quantityInput" class="form-control bg-secondary text-center" name="Quantity" value="1">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-plus">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" id="btn-add-to-cart" class="btn btn-primary px-3" disabled>
+                        <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+                    </button>
+                </div>
+
+                <div id="stock-message"></div>
+            </div>
+        </div>
+
+        <div class="row px-xl-5 mt-3">
+            <div class="col">
+                <div class="nav nav-tabs justify-content-center border-secondary mb-4">
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Specifications</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        @foreach (var spec in Model.SpecificationAttributes)
+                                        {
+                                            <tr>
+                                                <th class="bg-light" style="width: 30%;">@spec.Name</th>
+                                                <td>@spec.Value</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <form asp-action="AddToCart" method="post">
+    <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+
+            <!-- Images -->
+            <div class="col-lg-5 pb-5">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner border">
+                        @for (int i = 0; i < Model.Images.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <img class="w-100 h-100"
+                                     src="@ImageSettings.GetImageUrl(ImageSettings.ProudctsImagesFolder, Model.Images[i].ImageUrl)"
+                                     alt="Image">
+                            </div>
+                        }
+                    </div>
+
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col-lg-7 pb-5">
+
+                <h3 class="font-weight-semi-bold">@Model.Name</h3>
+
+                @if (Model.HasOffer)
+                {
+                    <h3 class="font-weight-semi-bold mb-1">@Model.FinalPrice</h3>
+                    <h5 class="text-muted"><del>@Model.Price</del></h5>
+                }
+                else
+                {
+                    <h3 class="font-weight-semi-bold mb-4">@Model.Price</h3>
+                }
+
+                <p class="mb-2">
+                    @if (Model.productStatus == ProductStatus.Available)
+                    {
+                        <span class="text-success">Available</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">Sold Out</span>
+                    }
+                </p>
+
+                <p class="mb-4">@Model.Description</p>
+
+                
+                <!-- Attributes -->
+                @foreach (var attr in Model.Attributes)
+                {
+                    if (attr.Type == CategoryAttributeType.FixedSelect || attr.Type == CategoryAttributeType.CustomSelect)
+                    {
+                    <div class="d-flex mb-3">
+                            <p class="text-dark font-weight-medium mb-0 mr-3">
+                                @attr.Name
+                            </p>
+                        @foreach(var value in attr.Values)
+                        {
+                            <div class="custom-control custom-radio custom-control-inline">
+                                @* <input type="radio"
+                                       class="custom-control-input"
+                                       value="@value"
+                                       required/> 
+                                    <input type="radio" id="@(attr.Name)-@value" name="@attr.Name" class="custom-control-input" disabled checked="@(attr.Values.Count == 1)">
+                                    <label class="custom-control-label" for="@(attr.Name)-@value">@value</label>
+                                    @* 
+                                    <input type="radio" asp-for="@attr.AttributeId"  class="custom-control-input" checked  value="@value"> 
+                                    <div class="d-flex flex-wrap gap-3">
+                                        @for (int i = 0; i < attr.Values.Count; i++)
+                                        {
+                                            var val = attr.Values[i];
+                                            <div class="custom-control custom-radio mr-3">
+                                                <input type="radio"
+                                                       id="attr-@attr.AttributeId-@i"
+                                                       name="SelectedAttr_@attr.AttributeId"
+                                                       class="custom-control-input"
+                                                       value="@val"
+                                                       @(i == 0 ? "checked" : "")> @* تعليم أول اختيار تلقائياً 
+
+                                                <label class="custom-control-label" for="attr-@attr.AttributeId-@i">
+                                                    @val
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                            </div>
+                            
+                        }
+                    </div>
+                    }
+                 
+                }
+
+                <!-- Quantity + Add To Cart -->
+                <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-minus">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+
+                        <input type="text"
+                               class="form-control bg-secondary text-center"
+                               name="Quantity"
+                               value="1">
+
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-plus">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary px-3">
+                        <i class="fa fa-shopping-cart mr-1"></i>
+                        Add To Cart
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+ *@

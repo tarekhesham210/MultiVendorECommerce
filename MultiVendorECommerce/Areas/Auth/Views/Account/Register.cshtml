@@ -1,0 +1,183 @@
+﻿@using PermissionBasedAuz.Shared.Enums
+@using PermissionBasedAuz.ViewModels;
+@model  RegisterVM
+@{
+    ViewData["Title"] = "Register";
+}
+
+<form id="registerForm" method="post" asp-action="Register" asp-area="Auth" asp-controller="Account" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" class="form-control" type="password" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image" class="form-label mt-4"></label>
+        <input type="file" class="form-control" asp-for="Image"
+               data-val-extension="@ImageSettings.AllowedExtensions.Replace(".", string.Empty)"
+               data-msg-extension="Not allowed extension"
+               data-val-filesize="@ImageSettings.MaxFileSizeInBytes"
+               data-val-filesize="Maximum allowed size is @ImageSettings.MaxFileSizeInMB MB">
+        <small class="form-text text-muted">Only @ImageSettings.AllowedExtensions files are allowed with max size @(ImageSettings.MaxFileSizeInMB)MB.</small>
+        <span asp-validation-for="Image" class="text-danger d-block"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="userType" class="form-label"></label>
+        <select asp-for="userType" class="form-control"  id="userTypeSelect">
+            <option value="">-- Profile --</option>
+
+            @foreach(var item in Html.GetEnumSelectList<UserType>())
+            {
+                if(item.Value == "1")
+                {
+                    continue;
+                }
+                <option value="@item.Value">@item.Text</option>
+            }
+)
+        </select>
+        <span asp-validation-for="userType" class="text-danger"></span>
+    </div>
+    <div id="typeSpecificContainer"></div>
+    
+
+    <button type="submit" class="btn btn-primary mt-2"  >Register</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form = document.getElementById("registerForm");
+            const userTypeSelect = document.getElementById("userTypeSelect");
+            const container = document.getElementById("typeSpecificContainer");
+
+            if (!form || !userTypeSelect || !container) {
+                console.error("Register JS: missing elements");
+                return;
+            }
+
+            function resetFormActionAndFields() {
+                form.removeAttribute("action");
+                container.innerHTML = "";
+            }
+
+            function loadCustomer() {
+                form.action = "/Auth/Account/RegisterCustomer";
+
+                fetch("/Auth/Account/RegisterCustomerPartial")
+                    .then(res => {
+                        if (!res.ok) throw new Error("Customer partial failed");
+                        return res.text();
+                    })
+                    .then(html => container.innerHTML = html)
+                    .catch(err => {
+                        console.error(err);
+                        container.innerHTML = "<p class='text-danger'>Failed to load customer fields</p>";
+                    });
+            }
+
+            function loadVendor() {
+                form.action = "/Auth/Account/RegisterVendor";
+
+                fetch("/Auth/Account/RegisterVendorPartial")
+                    .then(res => {
+                        if (!res.ok) throw new Error("Vendor partial failed");
+                        return res.text();
+                    })
+                    .then(html => container.innerHTML = html)
+                    .catch(err => {
+                        console.error(err);
+                        container.innerHTML = "<p class='text-danger'>Failed to load vendor fields</p>";
+                    });
+            }
+
+            userTypeSelect.addEventListener("change", function () {
+
+                resetFormActionAndFields();
+
+                if (this.value === "2") {
+                    loadCustomer();
+                }
+                else if (this.value === "3") {
+                    loadVendor();
+                }
+            });
+
+        });
+    </script>
+
+
+
+    
+
+@*     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userTypeSelect = document.getElementById("userTypeSelect");
+            const container = document.getElementById("typeSpecificContainer");
+
+            if (!userTypeSelect || !container) return;
+
+            function updateFormAction() {
+            const type = userTypeSelect.value;
+
+            if (type == "0") {
+                form.action = "/Account/RegisterCustomer";
+            } else if (type == "1") {
+                form.action = "/Account/RegisterVendor";
+            } else {
+                form.removeAttribute("action");
+            }
+        }
+
+            function loadPartial(userType) {
+                container.innerHTML = ""; 
+                if (!userType) return; 
+
+                let url = "";
+
+                if (userType === "0") {
+                    url = `${window.location.origin}/Account/RegisterCustomerPartial`;
+                } else if (userType === "1") {
+                    url = `${window.location.origin}/Account/RegisterVendorPartial`;
+                } else {
+                    console.error("Unknown user type:", userType);
+                    return;
+                }
+
+                fetch(url)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Partial not found or failed to load");
+                        return res.text();
+                    })
+                    .then(html => {
+                        container.innerHTML = html;
+                    })
+                    .catch(err => {
+                        console.error("Error loading partial:", err);
+                        container.innerHTML = "<p class='text-danger'>Failed to load fields.</p>";
+                    });
+            }
+
+            userTypeSelect.addEventListener("change", function () {
+                loadPartial(this.value);
+            });
+
+            loadPartial(userTypeSelect.value);
+        });
+    </script>
+ *@}
+

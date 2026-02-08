@@ -1,0 +1,113 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PermissionBasedAuz.Models;
+using PermissionBasedAuz.ViewModels;
+using PermissionBasedAuz.Exceptions;
+using Microsoft.AspNetCore.Identity;
+using PermissionBasedAuz.Shared.Enums;
+using PermissionBasedAuz.Shared.Repositories.Interfaces;
+
+namespace PermissionBasedAuz.Services
+{
+    public class VendorService
+    {
+        private readonly IVendorRepository _vendorRepo;
+        public VendorService(IVendorRepository vendorRepo, UserManager<ApplicationUser> userManager)
+        {
+            _vendorRepo = vendorRepo;
+        }
+        public async Task<bool> CreateVendorProfile(VendorRegisterVM vendorVm, string userId)
+
+        {
+            if(string.IsNullOrEmpty(userId)) 
+                throw new ValidationException("UserId cannot be null or empty.");
+            
+            var vendor = new Vendor
+            {
+                UserId = userId,
+                StoreName = vendorVm.StoreName,
+                StoreDescription = vendorVm.StoreDescription,
+                VendorStatus = VendorStatus.Pending,
+                CreatedAt = DateTime.UtcNow
+            };
+           bool isAdded= await _vendorRepo.AddVendorAsync(vendor);
+              return isAdded;
+        }
+        public async Task RejectVendor(int Id)
+        {
+            if(Id<=0) 
+                throw new ValidationException("Invalide Vendor Id.");
+            
+            Vendor? vendor= await _vendorRepo.GetVendorByIdAsync(Id);
+            if(vendor==null) 
+                throw new NotFoundException("Vendor not found.");
+            await _vendorRepo.RejectVendorAsync(vendor);
+        }
+
+        public async Task<IEnumerable<VendorUserVM>> GetPendingVendorsAsync()
+        {
+            return (await _vendorRepo.GetAllVendorsAsync()).Where(v=>v.VendorStatus==VendorStatus.Pending)
+                .Select(v=>new VendorUserVM
+                {
+                    Id = v.Id,
+                    userId=v.User.Id,
+                    Email = v.User.Email,
+                    StoreName = v.StoreName,
+                    Name = v.User.UserName,
+                    vendorStatus = v.VendorStatus,
+                    CreatedAt = v.CreatedAt
+                   
+                });
+        }
+        public async Task<IEnumerable<VendorUserVM>> GetApprovedVendorsAsync()
+        {
+            return (await _vendorRepo.GetAllVendorsAsync()).Where(v => v.VendorStatus == VendorStatus.Approved)
+                .Select(v => new VendorUserVM
+                {
+                    Id = v.Id,
+                    userId = v.User.Id,
+                    Email = v.User.Email,
+                    StoreName = v.StoreName,
+                    Name = v.User.UserName,
+                    vendorStatus = v.VendorStatus,
+                    CreatedAt = v.CreatedAt
+
+                });
+        }
+
+        public async Task ApproveVendor(int Id)
+        {
+            if(Id<=0) 
+                throw new ValidationException("Invalide Vendor Id.");
+            
+            Vendor? vendor= await _vendorRepo.GetVendorByIdAsync(Id);
+            if(vendor==null) 
+                throw new NotFoundException("Vendor not found.");
+            vendor.VendorStatus=VendorStatus.Approved;
+            await _vendorRepo.SaveAsync();
+        }
+        public async Task SuspendVendor(int Id)
+        {
+            if (Id <= 0)
+                throw new ValidationException("Invalide Vendor Id.");
+
+            Vendor? vendor = await _vendorRepo.GetVendorByIdAsync(Id);
+            if (vendor == null)
+                throw new NotFoundException("Vendor not found.");
+            vendor.VendorStatus = VendorStatus.Suspended;
+            await _vendorRepo.SaveAsync();
+        }
+
+        public async Task<int> GetVendorByUserIdAsync(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                throw new ValidationException("UserId cannot be null or empty.");
+            var vendor= await _vendorRepo.GetVendorByUserIdAsync(userId);
+            if (vendor==null)
+                throw new NotFoundException("Vendor profile not found.");
+            if(vendor.VendorStatus!=VendorStatus.Approved)
+                throw new BusinessRuleException("Invalid Vendor.");
+
+            return vendor.Id;
+        }
+    }
+}

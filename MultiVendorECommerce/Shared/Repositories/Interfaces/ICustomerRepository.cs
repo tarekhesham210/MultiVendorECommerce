@@ -1,0 +1,15 @@
+﻿using PermissionBasedAuz.Models;
+
+namespace PermissionBasedAuz.Shared.Repositories.Interfaces
+{
+    public interface ICustomerRepository
+    {
+        Task<IEnumerable<Customer>> GetAllCustomersAsync();
+        Task<Customer?> GetCustomerByIdAsync(int id);
+        Task<Customer?> GetCustomerByUserIdAsync(string userId);
+
+        Task<bool> AddCustomerAsync(Customer customer);
+        Task SaveAsync();
+
+    }
+}

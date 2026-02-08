@@ -1,0 +1,151 @@
+﻿@{
+    Layout = "";
+}
+@model List<CategoryAttributeVM>
+
+<div id="attributes-list">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="attribute-item border p-2 mb-2" data-index="@i">
+            <input type="hidden" name="Attributes.Index" value="@i" />
+
+            <input type="hidden" name="Attributes[@i].Id" value="@Model[i].Id" />
+            <input type="hidden" name="Attributes[@i].IsDeleted" value="@Model[i].IsDeleted.ToString().ToLower()" class="is-deleted-input" />
+
+            <div class="form-group">
+                <label>Name</label>
+                <input name="Attributes[@i].Name" value="@Model[i].Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+               
+                <div class="form-group form-check">
+                    <input type="checkbox" name="Attributes[@i].IsRequired" value="true" @(Model[i].IsRequired ? "checked" : "") class="form-check-input" />
+                    <input type="hidden" name="Attributes[@i].IsRequired" value="false" />
+                    <label class="form-check-label">Required</label>
+                </div>
+
+                 <label>Options</label>
+                <div class="options-list">
+                    @for (int j = 0; j < Model[i].Options.Count; j++)
+                    {
+                        <div class="input-group mb-1 option-item">
+                            <input type="text" name="Attributes[@i].Options[@j].Value" value="@Model[i].Options[j].Value" class="form-control" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-danger remove-option">X</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                 <button type="button" 
+                    class="btn btn-secondary btn-sm add-option mt-1">+ Add Option</button> 
+            </div>
+            <button type="button" class="btn btn-danger btn-sm remove-attribute mt-1" data-mode="edit">Remove</button>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @model List<CategoryAttributeVM>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    var attr = Model[i];
+
+    <div class="attribute-item border p-2 mb-2">
+        <input type="hidden" asp-for="@Model[i].Id" />
+        <input type="hidden" asp-for="@Model[i].IsDeleted" />
+
+        <input asp-for="@Model[i].Name" class="form-control mb-1" />
+
+        <select asp-for="@Model[i].Type" class="form-control mb-1">
+            @foreach (var t in Enum.GetValues(typeof(CategoryAttributeType)))
+            {
+                <option value="@t">@t</option>
+            }
+        </select>
+
+        <label>
+            <input asp-for="@Model[i].IsRequired" /> Required
+        </label>
+
+        @if (attr.Type == CategoryAttributeType.FixedSelect ||
+            attr.Type == CategoryAttributeType.CustomSelect)
+        {
+            @for (int j = 0; j < attr.Options.Count; j++)
+            {
+                <input type="text"
+                       name="Attributes[@i].Options[@j].Value"
+                       value="@attr.Options[j].Value"
+                       class="form-control mb-1" />
+            }
+        }
+
+        <button type="button"
+                class="btn btn-danger btn-sm remove-attribute">
+            Remove
+        </button>
+    </div>
+}
+
+ *@
+ @section Scripts {
+   @*  <script>
+        // Show/hide Options based on Type
+        $(document).on("change", ".type-select", function () {
+            var container = $(this).closest(".attribute-item").find(".options-container");
+            if ($(this).val() === "FixedSelect" || $(this).val() === "CustomSelect") container.show();
+            else container.hide();
+        });
+
+        // Add Option
+        $(document).on("click", ".add-option", function () {
+            var optionsList = $(this).siblings(".options-list");
+            var attrIndex = $(this).closest(".attribute-item").index();
+            var optionIndex = optionsList.children().length;
+
+            var html = `
+                <div class="input-group mb-1 option-item">
+                    <input type="text" name="Attributes[${attrIndex}].Options[${optionIndex}].Value" class="form-control" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-danger remove-option">X</button>
+                    </div>
+                </div>`;
+            optionsList.append(html);
+        });
+
+        // Remove Option
+        $(document).on("click", ".remove-option", function () {
+            $(this).closest(".option-item").remove();
+        });
+
+        // Remove Attribute (soft delete)
+        $(document).on("click", ".remove-attribute", function () {
+            var item = $(this).closest(".attribute-item");
+            item.hide();
+            item.find("input[name$='.IsDeleted']").val("true");
+        });
+    </script> *@
+} 
