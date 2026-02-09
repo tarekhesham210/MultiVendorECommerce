@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Admin.Services;
+using MultiVendorECommerce.Areas.Admin.Services;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Admin.Controllers
+namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CustomerController : Controller
@@ -46,6 +46,12 @@ namespace PermissionBasedAuz.Areas.Admin.Controllers
             }
             await _customerService.ActivateCustomer(id);
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> CustomerDetails(int id)
+        {
+            var customerDetails =await _customerService.GetCustomerDetails(id);
+            return View(customerDetails);
         }
     }
 }

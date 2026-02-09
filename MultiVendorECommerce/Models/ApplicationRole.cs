@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Models
+namespace MultiVendorECommerce.Models
 {
     public class ApplicationRole:IdentityRole
     {

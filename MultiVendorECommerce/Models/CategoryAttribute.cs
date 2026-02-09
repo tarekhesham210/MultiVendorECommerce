@@ -1,7 +1,7 @@
-﻿using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PermissionBasedAuz.Models
+namespace MultiVendorECommerce.Models
 {
    // [Table("CategoryAttribute")]
     public class CategoryAttribute

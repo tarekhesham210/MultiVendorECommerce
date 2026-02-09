@@ -1,4 +1,4 @@
-﻿@using PermissionBasedAuz.Shared.Enums
+﻿@using MultiVendorECommerce.Shared.Enums
 @model CheckoutVM
     <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
@@ -90,7 +90,7 @@
                         <div class="form-group">
 
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" asp-for="@method" value="@method">
+                                <input type="radio" class="custom-control-input" asp-for="@Model.PaymentMethod" value="@method">
                                 <label class="custom-control-label" asp-for="@method">@method.ToString()</label>
                             </div>
                         </div>

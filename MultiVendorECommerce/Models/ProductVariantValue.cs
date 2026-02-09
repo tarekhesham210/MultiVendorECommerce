@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Models
+﻿namespace MultiVendorECommerce.Models
 {
     //is variant=true
     public class ProductVariantValue

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace PermissionBasedAuz.Areas.Customer.ViewModels
+namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class CategoriesForHomeVM
     {

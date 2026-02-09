@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PermissionBasedAuz.Data;
+using MultiVendorECommerce.Data;
 
 #nullable disable
 
-namespace PermissionBasedAuz.Migrations
+namespace MultiVendorECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDb))]
     [Migration("20260123225529_addProductVariantTable")]
@@ -130,7 +130,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ApplicationRole", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -160,7 +160,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -232,7 +232,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Cart", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -254,7 +254,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CartItem", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +284,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Category", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -318,7 +318,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CategoryAttribute", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CategoryAttribute", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,7 +346,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("CategoryAttributes");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CategoryAttributeOption", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CategoryAttributeOption", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -368,7 +368,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("CategoryAttributeOptions");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Customer", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -407,7 +407,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Offer", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Offer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -432,7 +432,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("Offers");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Order", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -460,7 +460,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.OrderItem", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -494,7 +494,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Product", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -538,7 +538,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductAttributeValue", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductAttributeValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -565,7 +565,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("ProductAttributeValues");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductImage", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -590,7 +590,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductVariant", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductVariant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -631,7 +631,7 @@ namespace PermissionBasedAuz.Migrations
                     b.HasCheckConstraint("CK_Variant_Stock_NonNegative", "[StockQuantity] >= 0");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductVariantValue", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductVariantValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -658,7 +658,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("ProductVariantValues");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Vendor", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Vendor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -696,7 +696,7 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationRole", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -705,7 +705,7 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -714,7 +714,7 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -723,13 +723,13 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationRole", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -738,33 +738,33 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Cart", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Cart", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Customer", "Customer")
+                    b.HasOne("MultiVendorECommerce.Models.Customer", "Customer")
                         .WithOne("Cart")
-                        .HasForeignKey("PermissionBasedAuz.Models.Cart", "CustomerId")
+                        .HasForeignKey("MultiVendorECommerce.Models.Cart", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CartItem", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CartItem", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Cart", "Cart")
+                    b.HasOne("MultiVendorECommerce.Models.Cart", "Cart")
                         .WithMany("Items")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.ProductVariant", "Variant")
+                    b.HasOne("MultiVendorECommerce.Models.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("ProductVariantId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -775,9 +775,9 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Variant");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Category", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Category", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Category", "ParentCategory")
+                    b.HasOne("MultiVendorECommerce.Models.Category", "ParentCategory")
                         .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -785,9 +785,9 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CategoryAttribute", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CategoryAttribute", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Category", "Category")
+                    b.HasOne("MultiVendorECommerce.Models.Category", "Category")
                         .WithMany("Attributes")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -796,9 +796,9 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CategoryAttributeOption", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CategoryAttributeOption", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.CategoryAttribute", "CategoryAttribute")
+                    b.HasOne("MultiVendorECommerce.Models.CategoryAttribute", "CategoryAttribute")
                         .WithMany("Options")
                         .HasForeignKey("CategoryAttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -807,20 +807,20 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("CategoryAttribute");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Customer", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Customer", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", "User")
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", "User")
                         .WithOne("Customer")
-                        .HasForeignKey("PermissionBasedAuz.Models.Customer", "UserId")
+                        .HasForeignKey("MultiVendorECommerce.Models.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Order", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Order", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Customer", "Customer")
+                    b.HasOne("MultiVendorECommerce.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -829,21 +829,21 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.OrderItem", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.OrderItem", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Order", "Order")
+                    b.HasOne("MultiVendorECommerce.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.ProductVariant", "Variant")
+                    b.HasOne("MultiVendorECommerce.Models.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("ProductVariantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.Vendor", "Vendor")
+                    b.HasOne("MultiVendorECommerce.Models.Vendor", "Vendor")
                         .WithMany()
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -856,15 +856,15 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Product", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Product", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Category", "Category")
+                    b.HasOne("MultiVendorECommerce.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.Vendor", "Vendor")
+                    b.HasOne("MultiVendorECommerce.Models.Vendor", "Vendor")
                         .WithMany("Products")
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -875,15 +875,15 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductAttributeValue", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductAttributeValue", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.CategoryAttribute", "CategoryAttribute")
+                    b.HasOne("MultiVendorECommerce.Models.CategoryAttribute", "CategoryAttribute")
                         .WithMany()
                         .HasForeignKey("CategoryAttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.Product", "Product")
+                    b.HasOne("MultiVendorECommerce.Models.Product", "Product")
                         .WithMany("AttributeValues")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -894,9 +894,9 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductImage", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductImage", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Product", "Product")
+                    b.HasOne("MultiVendorECommerce.Models.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -905,14 +905,14 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductVariant", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductVariant", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.Offer", "CurrentOffer")
+                    b.HasOne("MultiVendorECommerce.Models.Offer", "CurrentOffer")
                         .WithMany("Variants")
                         .HasForeignKey("OfferId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("PermissionBasedAuz.Models.Product", "Product")
+                    b.HasOne("MultiVendorECommerce.Models.Product", "Product")
                         .WithMany("Variants")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -923,15 +923,15 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductVariantValue", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductVariantValue", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.CategoryAttribute", "CategoryAttribute")
+                    b.HasOne("MultiVendorECommerce.Models.CategoryAttribute", "CategoryAttribute")
                         .WithMany()
                         .HasForeignKey("CategoryAttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.ProductVariant", "ProductVariant")
+                    b.HasOne("MultiVendorECommerce.Models.ProductVariant", "ProductVariant")
                         .WithMany("VariantValues")
                         .HasForeignKey("ProductVariantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -942,30 +942,30 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("ProductVariant");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Vendor", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Vendor", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", "User")
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", "User")
                         .WithOne("Vendor")
-                        .HasForeignKey("PermissionBasedAuz.Models.Vendor", "UserId")
+                        .HasForeignKey("MultiVendorECommerce.Models.Vendor", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Customer");
 
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Cart", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Cart", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Category", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Category", b =>
                 {
                     b.Navigation("Attributes");
 
@@ -974,12 +974,12 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("SubCategories");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.CategoryAttribute", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.CategoryAttribute", b =>
                 {
                     b.Navigation("Options");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Customer", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Customer", b =>
                 {
                     b.Navigation("Cart")
                         .IsRequired();
@@ -987,17 +987,17 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Offer", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Offer", b =>
                 {
                     b.Navigation("Variants");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Order", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Order", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Product", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Product", b =>
                 {
                     b.Navigation("AttributeValues");
 
@@ -1006,12 +1006,12 @@ namespace PermissionBasedAuz.Migrations
                     b.Navigation("Variants");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ProductVariant", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ProductVariant", b =>
                 {
                     b.Navigation("VariantValues");
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.Vendor", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.Vendor", b =>
                 {
                     b.Navigation("Products");
                 });

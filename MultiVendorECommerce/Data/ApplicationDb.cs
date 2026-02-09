@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Models;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Areas.Vendor.ViewModels;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
 
-namespace PermissionBasedAuz.Data
+namespace MultiVendorECommerce.Data
 {
     public class ApplicationDb :IdentityDbContext<ApplicationUser,ApplicationRole,string>
     {
@@ -37,6 +39,21 @@ namespace PermissionBasedAuz.Data
             
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDb).Assembly);
         }
+
+
+        
+
+        public DbSet<MultiVendorECommerce.Areas.Vendor.ViewModels.NewOrderItemVM>? NewOrderItemVM { get; set; }
+
+
+        
+
+        public DbSet<MultiVendorECommerce.Areas.Admin.ViewModels.OrderDetailsVM>? OrderDetailsVM { get; set; }
+
+
+        
+
+        public DbSet<MultiVendorECommerce.Areas.Admin.ViewModels.VendorDetailsVM>? VendorDetailsVM { get; set; }
     }
     
 }

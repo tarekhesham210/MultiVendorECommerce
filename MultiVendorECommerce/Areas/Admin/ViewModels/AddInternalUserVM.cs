@@ -1,8 +1,8 @@
-﻿using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Shared.ViewModels;
+﻿using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Shared.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Admin.ViewModels
+namespace MultiVendorECommerce.Areas.Admin.ViewModels
 {
     public class AddInternalUserVM
     {

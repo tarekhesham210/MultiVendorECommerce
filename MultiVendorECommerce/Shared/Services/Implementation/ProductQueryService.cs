@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Areas.Vendor.ViewModels;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Areas.Vendor.ViewModels;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 using System.Collections;
 
-namespace PermissionBasedAuz.Shared.Services.Implementation
+namespace MultiVendorECommerce.Shared.Services.Implementation
 {
     public class ProductQueryService:IProductQueryService
     {

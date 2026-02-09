@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
 
-namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class CategoryAttributeVM
     {

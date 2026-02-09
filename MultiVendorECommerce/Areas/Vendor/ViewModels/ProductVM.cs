@@ -1,8 +1,8 @@
-﻿using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class ProductVM
     {

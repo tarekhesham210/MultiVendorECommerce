@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class ProductVariantVM: IValidatableObject
     {

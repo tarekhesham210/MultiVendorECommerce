@@ -1,7 +1,7 @@
-﻿using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Shared.Enums;
 
-namespace PermissionBasedAuz.Models
+namespace MultiVendorECommerce.Models
 {
     public class Product
     {

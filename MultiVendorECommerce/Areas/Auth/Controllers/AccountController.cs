@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Auth.Services;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Areas.Auth.Services;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.ViewModels;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Auth.Controllers
+namespace MultiVendorECommerce.Areas.Auth.Controllers
 {
     [AllowAnonymous]
     [Area("Auth")]

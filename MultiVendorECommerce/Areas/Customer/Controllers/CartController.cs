@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Customer.Services;
+using MultiVendorECommerce.Areas.Customer.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Customer.Controllers
+namespace MultiVendorECommerce.Areas.Customer.Controllers
 {
     [Area("Customer")]
     public class CartController : Controller

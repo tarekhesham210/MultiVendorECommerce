@@ -1,7 +1,8 @@
-﻿namespace PermissionBasedAuz.Areas.Customer.ViewModels
+﻿namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class ProductSummaryVM
     {
+      
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }

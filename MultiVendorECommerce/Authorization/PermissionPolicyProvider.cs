@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace PermissionBasedAuz.Authorization
+namespace MultiVendorECommerce.Authorization
 {
     public class PermissionPolicyProvider : IAuthorizationPolicyProvider
     {

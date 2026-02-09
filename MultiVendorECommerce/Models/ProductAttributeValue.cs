@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PermissionBasedAuz.Models
+namespace MultiVendorECommerce.Models
 {
     //is variant=false
 

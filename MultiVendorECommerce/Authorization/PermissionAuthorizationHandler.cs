@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using PermissionBasedAuz.Constants;
+using MultiVendorECommerce.Constants;
 
-namespace PermissionBasedAuz.Authorization
+namespace MultiVendorECommerce.Authorization
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {

@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.ViewModels;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.ViewModels;
 using System.Security.Claims;
 
-namespace PermissionBasedAuz.Areas.Admin.Services
+namespace MultiVendorECommerce.Areas.Admin.Services
 {
     public class RoleService
     {

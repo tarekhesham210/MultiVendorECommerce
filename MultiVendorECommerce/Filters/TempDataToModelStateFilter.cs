@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace PermissionBasedAuz.Filters
+namespace MultiVendorECommerce.Filters
 {
     public class TempDataToModelStateFilter : IAsyncActionFilter
     {

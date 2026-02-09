@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Customer.Services;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Customer.Services;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Customer.Controllers
+namespace MultiVendorECommerce.Areas.Customer.Controllers
 {
     [AllowAnonymous]
 

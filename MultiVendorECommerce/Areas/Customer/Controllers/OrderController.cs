@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Customer.Services;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Areas.Customer.Services;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
 using System.Security.Claims;
 
-namespace PermissionBasedAuz.Areas.Customer.Controllers
+namespace MultiVendorECommerce.Areas.Customer.Controllers
 {
     [Area("Customer")]
     public class OrderController : Controller
@@ -46,6 +46,18 @@ namespace PermissionBasedAuz.Areas.Customer.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var orders = await _orderService.GetCustomerOrders(userId);
             return View(orders);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelOrder(int orderId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            await _orderService.CancelOrder(userId, orderId);
+            return RedirectToAction(nameof(MyOrders));
         }
     }
 }

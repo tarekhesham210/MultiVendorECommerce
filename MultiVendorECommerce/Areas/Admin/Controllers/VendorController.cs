@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Admin.Services;
+using MultiVendorECommerce.Areas.Admin.Services;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Admin.Controllers
+namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class VendorController : Controller
@@ -72,5 +72,11 @@ namespace PermissionBasedAuz.Areas.Admin.Controllers
             return RedirectToAction(nameof(ApprovedVendors));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> VendorDetails(int id)
+        {
+            var vendor = await _vendorService.GetVendorDetails(id);         
+            return View(vendor);
+        }
     }
 }

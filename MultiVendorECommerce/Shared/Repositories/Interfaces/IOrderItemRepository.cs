@@ -1,13 +1,14 @@
-﻿using PermissionBasedAuz.Models;
+﻿using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Shared.Repositories.Interfaces
+namespace MultiVendorECommerce.Shared.Repositories.Interfaces
 {
     public interface IOrderItemRepository
     {
-        Task SavAsync();
+        Task<OrderItem?> GetOrderItemsByIdAsync(int orderItemId);
+        Task SaveAsync();
         Task AddOrderItemAsync(OrderItem orderItem);
         void RemoveOrderItem(OrderItem orderItem);
          Task<List<OrderItem>> GetOrderItemsByOrderIdAsync(int orderId);
-
+        Task<IEnumerable<OrderItem>> GetVendorPendingOrderItemsAsync(int vendorId);
     }
 }

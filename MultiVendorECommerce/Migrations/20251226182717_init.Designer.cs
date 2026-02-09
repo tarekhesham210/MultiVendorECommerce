@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PermissionBasedAuz.Data;
+using MultiVendorECommerce.Data;
 
 #nullable disable
 
-namespace PermissionBasedAuz.Migrations
+namespace MultiVendorECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDb))]
     [Migration("20251226182717_init")]

@@ -1,10 +1,10 @@
-﻿using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
+﻿using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
 
-namespace PermissionBasedAuz.Areas.Admin.Services
+namespace MultiVendorECommerce.Areas.Admin.Services
 {
     public class VendorService
     {
@@ -97,6 +97,22 @@ namespace PermissionBasedAuz.Areas.Admin.Services
                     CreatedAt = v.CreatedAt
                 }).ToList();
             return rejectedVendors;
+        }
+
+        public async Task<VendorDetailsVM> GetVendorDetails(int vendorId)
+        {
+            if(vendorId <= 0) throw new ValidationException("Invalid vendor");
+            var vendor=await _vendorRepo.GetVendorByIdAsync(vendorId)??throw new NotFoundException("Vendor not found");
+
+            var vendorDetails = new VendorDetailsVM
+            {
+                Email = vendor.User.Email,
+                StoreName = vendor.StoreName,
+                StoreDescription = vendor.StoreDescription,
+                Phone = vendor.User.PhoneNumber,
+                Id = vendor.Id
+            };
+            return vendorDetails;
         }
     }
 

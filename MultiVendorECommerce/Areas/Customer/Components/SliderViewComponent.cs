@@ -1,11 +1,11 @@
-﻿namespace PermissionBasedAuz.Areas.Customer.Components
+﻿namespace MultiVendorECommerce.Areas.Customer.Components
 {
-    using global::PermissionBasedAuz.Areas.Customer.Services;
-    using global::PermissionBasedAuz.Areas.Customer.ViewModels;
+    using global::MultiVendorECommerce.Areas.Customer.Services;
+    using global::MultiVendorECommerce.Areas.Customer.ViewModels;
     using Microsoft.AspNetCore.Mvc;
     using System.Xml.Linq;
 
-    namespace PermissionBasedAuz.Areas.Customer.Components
+    namespace MultiVendorECommerce.Areas.Customer.Components
     {
         public class SliderViewComponent : ViewComponent
         {

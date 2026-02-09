@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 
-namespace PermissionBasedAuz.Areas.Customer.ViewModels
+namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class CategoryVM
     {

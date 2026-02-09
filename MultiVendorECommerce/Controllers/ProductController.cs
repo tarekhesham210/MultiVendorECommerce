@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PermissionBasedAuz.Areas.Admin.Controllers;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Services;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Areas.Admin.Controllers;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Services;
+using MultiVendorECommerce.ViewModels;
 using System.Security.Claims;
 
-namespace PermissionBasedAuz.Controllers
+namespace MultiVendorECommerce.Controllers
 {
     public class ProductController : Controller
     {

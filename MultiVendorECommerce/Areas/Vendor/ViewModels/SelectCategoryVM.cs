@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class SelectCategoryVM
     {

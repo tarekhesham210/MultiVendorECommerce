@@ -1,8 +1,8 @@
-﻿using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
 using System.Collections;
 
-namespace PermissionBasedAuz.Shared.ViewModels
+namespace MultiVendorECommerce.Shared.ViewModels
 {
     public class ProductSummary
     {

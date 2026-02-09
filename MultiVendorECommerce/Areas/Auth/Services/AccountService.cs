@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Services;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Services.Interfaces;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Services;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Services.Interfaces;
+using MultiVendorECommerce.ViewModels;
 using System.Data;
 using System.Security.Claims;
 
-namespace PermissionBasedAuz.Areas.Auth.Services
+namespace MultiVendorECommerce.Areas.Auth.Services
 {
     public class AccountService
     {

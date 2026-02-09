@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Attribute;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Attribute;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.ViewModels
+namespace MultiVendorECommerce.ViewModels
 {
     public class AddProductVM
     {

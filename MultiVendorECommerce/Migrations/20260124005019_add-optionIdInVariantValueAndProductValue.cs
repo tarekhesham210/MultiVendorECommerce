@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace PermissionBasedAuz.Migrations
+namespace MultiVendorECommerce.Migrations
 {
     public partial class addoptionIdInVariantValueAndProductValue : Migration
     {

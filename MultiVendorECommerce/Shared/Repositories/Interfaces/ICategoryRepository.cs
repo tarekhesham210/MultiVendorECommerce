@@ -1,6 +1,9 @@
-﻿using PermissionBasedAuz.Models;
+﻿
+using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Shared.Repositories.Interfaces
+
+
+namespace MultiVendorECommerce.Shared.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {

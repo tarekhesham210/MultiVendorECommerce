@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PermissionBasedAuz.Data;
+using MultiVendorECommerce.Data;
 
 #nullable disable
 
-namespace PermissionBasedAuz.Migrations
+namespace MultiVendorECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDb))]
     [Migration("20251227222643_applicationuser")]
@@ -157,7 +157,7 @@ namespace PermissionBasedAuz.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PermissionBasedAuz.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MultiVendorECommerce.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -238,7 +238,7 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -247,7 +247,7 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +262,7 @@ namespace PermissionBasedAuz.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,7 +271,7 @@ namespace PermissionBasedAuz.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PermissionBasedAuz.Models.ApplicationUser", null)
+                    b.HasOne("MultiVendorECommerce.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

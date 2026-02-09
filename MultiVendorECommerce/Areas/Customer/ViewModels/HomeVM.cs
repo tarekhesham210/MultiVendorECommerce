@@ -1,7 +1,7 @@
-﻿using PermissionBasedAuz.Areas.Vendor.ViewModels;
-using PermissionBasedAuz.Models;
+﻿using MultiVendorECommerce.Areas.Vendor.ViewModels;
+using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Areas.Customer.ViewModels
+namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class HomeVM
     {

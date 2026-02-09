@@ -32,6 +32,10 @@
                                 <a asp-action="OrderDetails" asp-route-id="@order.OrderId" class="btn btn-sm btn-primary">
                                     View Details
                                 </a>
+                                <form class="d-inline" asp-action="CancelOrder" asp-route-orderId="@order.OrderId" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger " @(order.Status != "Pending" ? "disabled" : "")>
+                                        Cancel</button>
+                                </form>
                             </td>
                         </tr>
                     }

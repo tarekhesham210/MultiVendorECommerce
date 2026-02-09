@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace PermissionBasedAuz.Authorization
+namespace MultiVendorECommerce.Authorization
 {
     public class PermissionRequirement:IAuthorizationRequirement
     {

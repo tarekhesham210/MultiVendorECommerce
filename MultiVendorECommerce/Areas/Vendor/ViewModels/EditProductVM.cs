@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Attribute;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Attribute;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class EditProductVM: BaseProductVM
     {

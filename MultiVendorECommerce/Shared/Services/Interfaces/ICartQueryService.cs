@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Areas.Customer.ViewModels;
+﻿using MultiVendorECommerce.Areas.Customer.ViewModels;
 
-namespace PermissionBasedAuz.Shared.Services.Interfaces
+namespace MultiVendorECommerce.Shared.Services.Interfaces
 {
     public interface ICartQueryService
     {

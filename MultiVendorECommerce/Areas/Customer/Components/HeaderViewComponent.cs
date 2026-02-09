@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Customer.Services;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Areas.Customer.Services;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
 
-namespace PermissionBasedAuz.Areas.Customer.Components
+namespace MultiVendorECommerce.Areas.Customer.Components
 {
     public class HeaderViewComponent : ViewComponent
     {

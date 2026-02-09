@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.ViewModels
+namespace MultiVendorECommerce.ViewModels
 {
     public class LoginFormVM
     {

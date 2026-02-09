@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Admin.Services;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Services;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Areas.Admin.Services;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Services;
+using MultiVendorECommerce.ViewModels;
 
-namespace PermissionBasedAuz.Areas.Admin.Controllers
+namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
 

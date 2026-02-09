@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Models;
+﻿using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Areas.Customer.ViewModels
+namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class CategoryProductsVM
     {

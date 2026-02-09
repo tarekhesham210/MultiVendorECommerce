@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Shared.Enums;
 
-namespace PermissionBasedAuz.Areas.Admin.ViewModels
+namespace MultiVendorECommerce.Areas.Admin.ViewModels
 {
     public class VendorUserVM
     {

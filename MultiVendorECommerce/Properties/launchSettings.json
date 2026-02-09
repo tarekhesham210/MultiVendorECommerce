@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "PermissionBasedAuz": {
+    "MultiVendorECommerce": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

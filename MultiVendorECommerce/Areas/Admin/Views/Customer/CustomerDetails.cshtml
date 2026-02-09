@@ -1,0 +1,40 @@
+﻿@model CustomerDetailsVM
+
+<div class="card shadow-lg border-0 mb-4">
+    <div class="card-body p-4">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-2 text-center">
+                <img src="@(string.IsNullOrEmpty(Model.Image)
+                                                 ? "/images/default-user.png"
+                                                 : ImageSettings.GetImageUrl(ImageSettings.UsersImagesFolder,Model.Image))
+                     class="rounded-circle border"
+                     style="width:120px;height:120px;object-fit:cover" />
+            </div>
+
+            <div class="col-md-7">
+                <h3 class="mb-2 fw-bold">@Model.FullName</h3>
+
+                <div class="fs-5 mb-1">
+                    <i class="bi bi-envelope text-primary me-2"></i>
+                    <strong>Email:</strong> @Model.Email
+                </div>
+
+                <div class="fs-5 mb-1">
+                    <i class="bi bi-telephone text-success me-2"></i>
+                    <strong>Phone:</strong>
+                    @(string.IsNullOrEmpty(Model.Phone) ? "Not Provided" : Model.Phone)
+                </div>
+
+                <div class="mt-2">
+                    <span class="badge px-3 py-2 fs-6
+                        @(Model.Status == "Active" ? "bg-success" : "bg-danger")">
+                        @Model.Status
+                    </span>
+                </div>
+            </div>  
+
+        </div>
+    </div>
+</div>

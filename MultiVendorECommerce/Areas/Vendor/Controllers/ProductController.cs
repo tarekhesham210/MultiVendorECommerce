@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Vendor.Services;
-using PermissionBasedAuz.Areas.Vendor.ViewModels;
+using MultiVendorECommerce.Areas.Vendor.Services;
+using MultiVendorECommerce.Areas.Vendor.ViewModels;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Vendor.Controllers
+namespace MultiVendorECommerce.Areas.Vendor.Controllers
 {
     [Area("Vendor")]
     public class ProductController : Controller

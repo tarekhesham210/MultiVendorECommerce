@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Constants
+﻿namespace MultiVendorECommerce.Constants
 {
     public static class PermissionClaim
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Attribute
+namespace MultiVendorECommerce.Attribute
 {
     public class MinFilesCountAttribute : ValidationAttribute
     {

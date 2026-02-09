@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Services.Interfaces;
-using PermissionBasedAuz.Areas.Vendor.ViewModels;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Data;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Vendor.ViewModels;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Data;
 
 using Microsoft.EntityFrameworkCore;
+using MultiVendorECommerce.Exceptions;
 
 
-namespace PermissionBasedAuz.Areas.Vendor.Services
+namespace MultiVendorECommerce.Areas.Vendor.Services
 {
     public class ProductService
     {

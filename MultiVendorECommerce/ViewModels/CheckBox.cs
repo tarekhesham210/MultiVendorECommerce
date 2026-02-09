@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.ViewModels
+﻿namespace MultiVendorECommerce.ViewModels
 {
     public class CheckBox
     {

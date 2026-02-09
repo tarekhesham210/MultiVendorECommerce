@@ -1,0 +1,43 @@
+﻿@using MultiVendorECommerce.Areas.Admin.ViewModels
+@model IEnumerable<PendingOrderVM>
+@{
+    ViewData["Title"] = "Pending Orders";
+}
+<h1>Pending Orders</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer Phone</th>
+            <th>Total Amount</th>
+            <th>Order Date</th>
+            <th>City</th>
+            <th>Address</th>          
+            <th>Payment</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td><a asp-action="CustomerDetails" asp-controller="Customer" asp-route-id="@order.CustomerId">
+                    @order.CustomerPhone</a></td>
+                <td>@order.Total.ToString("C")</td>
+                <td>@order.OrderDate</td>
+                <td>@order.ShippingCity</td>
+                <td>@order.ShippingAddress</td>
+                <td>@order.PaymentStatus</td>
+                <td>
+                    <a asp-action="NewOrderDetails" asp-route-orderId="@order.Id" class="btn btn-info">Details</a>
+                    <form asp-action="ConfirmOrder" asp-route-orderId="@order.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </form>
+                    <form asp-action="RejectOrder" asp-route-id="@order.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                    <!-- Add more actions as needed -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

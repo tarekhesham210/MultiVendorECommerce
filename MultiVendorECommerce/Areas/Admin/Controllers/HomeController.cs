@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Models;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Areas.Admin.Controllers
+namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 
-namespace PermissionBasedAuz.Models
+namespace MultiVendorECommerce.Models
 {
     public class ApplicationUser:IdentityUser
     {

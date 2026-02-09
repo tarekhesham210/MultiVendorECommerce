@@ -1,8 +1,8 @@
-﻿using PermissionBasedAuz.Attribute;
-using PermissionBasedAuz.Constants;
+﻿using MultiVendorECommerce.Attribute;
+using MultiVendorECommerce.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.ViewModels
+namespace MultiVendorECommerce.ViewModels
 {
     public class EditUserDataVM
     {

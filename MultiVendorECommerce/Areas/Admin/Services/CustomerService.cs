@@ -1,9 +1,9 @@
-﻿using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
+﻿using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
 
-namespace PermissionBasedAuz.Areas.Admin.Services
+namespace MultiVendorECommerce.Areas.Admin.Services
 {
     public class CustomerService
     {
@@ -18,11 +18,11 @@ namespace PermissionBasedAuz.Areas.Admin.Services
 
         public async Task<List<CustomerVM>> GetAllCustomers()
         {
-            var customers= await _customerRepository.GetAllCustomersAsync();
+            var customers = await _customerRepository.GetAllCustomersAsync();
             return customers.Select(c => new CustomerVM
             {
                 Id = c.Id,
-                FullName = c.FirstName +" "+c.LastName ,
+                FullName = c.FirstName + " " + c.LastName,
                 Email = c.User.Email,
                 Phone = c.Phone,
                 CreatedAt = c.CreatedAt,
@@ -30,16 +30,16 @@ namespace PermissionBasedAuz.Areas.Admin.Services
                 Status = c.Status
 
             }).ToList();
-          
+
         }
 
         public async Task BlockCustomer(int id)
-        {          
+        {
             if (id <= 0)
             {
                 throw new ValidationException("Invalid Customer Id");
             }
-            var customer=await _customerRepository. GetCustomerByIdAsync(id); 
+            var customer = await _customerRepository.GetCustomerByIdAsync(id);
             if (customer == null)
             {
                 throw new NotFoundException("Customer not found");
@@ -64,6 +64,30 @@ namespace PermissionBasedAuz.Areas.Admin.Services
             customer.Status = CustomerStatus.Active;
             await _customerRepository.SaveAsync();
             await _userService.ActivateUser(customer.UserId);
+        }
+
+        public async Task<CustomerDetailsVM> GetCustomerDetails(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("Invalid Customer Id");
+            }
+            var customer = await _customerRepository.GetCustomerByIdAsync(id);
+            if (customer == null)
+            {
+                throw new NotFoundException("Customer not found");
+            }
+            var user = await _userService.GetUserById(customer.UserId);
+            return new CustomerDetailsVM
+            {
+                Id = customer.Id,
+                FullName = customer.FirstName + " " + customer.LastName,
+                Email = customer.User.Email,
+                Phone = customer.Phone,
+                Status = customer.Status.ToString(),
+                Image = user.Image
+            };
+
         }
     }
 }

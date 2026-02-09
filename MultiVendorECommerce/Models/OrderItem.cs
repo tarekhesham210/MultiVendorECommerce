@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Models
+﻿namespace MultiVendorECommerce.Models
 {
     public class OrderItem
     {
@@ -15,6 +15,7 @@
 
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+        public bool VendorConfirmation { get; set; }
     }
 
 }

@@ -1,4 +1,4 @@
-﻿@using PermissionBasedAuz.Areas.Customer.ViewModels
+﻿@using MultiVendorECommerce.Areas.Customer.ViewModels
 @model CategoriesHeaderVM
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
@@ -13,9 +13,9 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a asp-action="Index" asp-controller="Home" class="nav-item nav-link active">Home</a>
                         <a href="shop.html" class="nav-item nav-link">Shop</a>
-                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                        <a asp-action="MyOrders" asp-controller="Order" class="nav-item nav-link">My Orders</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">

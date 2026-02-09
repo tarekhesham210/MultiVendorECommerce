@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using PermissionBasedAuz.Shared.Enums;
+using MultiVendorECommerce.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Admin.ViewModels
+namespace MultiVendorECommerce.Areas.Admin.ViewModels
 {
     public class NewRoleVM
     {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Shared.Services.Implementation;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Services.Implementation;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Areas.Customer.Services
+namespace MultiVendorECommerce.Areas.Customer.Services
 {
     public class HomeService
     {

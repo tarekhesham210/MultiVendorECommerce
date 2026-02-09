@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.ViewModels;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.ViewModels;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Admin.Services
+namespace MultiVendorECommerce.Areas.Admin.Services
 {
     public class UserService
     {
@@ -209,7 +209,19 @@ namespace PermissionBasedAuz.Areas.Admin.Services
                 throw new OperationFailedException("Failed to suspend user: " + string.Join(", ", result.Errors.Select(e => e.Description)));
             }
         }
-
+        public async Task<ApplicationUser> GetUserById(string id)
+        {
+            if(string.IsNullOrEmpty(id))
+            {
+                throw new ValidationException("UserId cannot be null or empty.");
+            }
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException("User not found.");
+            }
+            return user;
+        }
 
         private async Task<bool> IsEmailExist(string email)
         {

@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Auth.Services;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Services;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Services.Interfaces;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Areas.Auth.Services;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Services;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Services.Interfaces;
+using MultiVendorECommerce.ViewModels;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Controllers
+namespace MultiVendorECommerce.Controllers
 {
    // [Authorize(Roles = "Admin")]
     public class AdminController : Controller

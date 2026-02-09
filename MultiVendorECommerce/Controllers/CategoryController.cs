@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-//using PermissionBasedAuz.Repository;
+//using MultiVendorECommerce.Repository;
 using System.Threading.Tasks;
-using PermissionBasedAuz.Services;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Services;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
 
-namespace PermissionBasedAuz.Controllers
+namespace MultiVendorECommerce.Controllers
 {
     //public class CategoryController : Controller
     //{

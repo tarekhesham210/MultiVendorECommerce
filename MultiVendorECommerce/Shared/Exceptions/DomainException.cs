@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Exceptions
+﻿namespace MultiVendorECommerce.Exceptions
 {
     public abstract class DomainException : Exception
     {

@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Shared.Enums;
 
-namespace PermissionBasedAuz.Areas.Customer.ViewModels
+namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class ProductAttributeOptionVM
     {

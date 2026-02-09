@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Services.Interfaces;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Services.Interfaces;
+using MultiVendorECommerce.ViewModels;
 using System.Security.Claims;
 
-namespace PermissionBasedAuz.Areas.Auth.Controllers
+namespace MultiVendorECommerce.Areas.Auth.Controllers
 {
     [Area("Auth")]
     [Authorize]

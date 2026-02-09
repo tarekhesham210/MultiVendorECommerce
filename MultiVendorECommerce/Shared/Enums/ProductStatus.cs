@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Shared.Enums
+﻿namespace MultiVendorECommerce.Shared.Enums
 {
     public enum ProductStatus
     {

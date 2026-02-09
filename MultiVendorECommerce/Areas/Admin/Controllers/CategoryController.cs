@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Areas.Admin.Services;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Areas.Admin.Services;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Areas.Admin.Controllers
+namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CategoryController : Controller

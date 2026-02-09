@@ -2,21 +2,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using PermissionBasedAuz.Areas.Admin.Services;
-using PermissionBasedAuz.Areas.Auth.Services;
-using PermissionBasedAuz.Areas.Customer.Services;
-using PermissionBasedAuz.Authorization;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Filters ;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Services;
-using PermissionBasedAuz.Shared.Repositories.Implementations;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Shared.Services.Implementation;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Admin.Services;
+using MultiVendorECommerce.Areas.Auth.Services;
+using MultiVendorECommerce.Areas.Customer.Services;
+using MultiVendorECommerce.Authorization;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Filters ;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Services;
+using MultiVendorECommerce.Shared.Repositories.Implementations;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Services.Implementation;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz
+namespace MultiVendorECommerce
 {
     public class Program
     {
@@ -38,7 +38,9 @@ namespace PermissionBasedAuz
             builder.Services.AddScoped<RoleService>();
             builder.Services.AddScoped<CustomerService>();
             builder.Services.AddScoped<CartService>();
-            builder.Services.AddScoped<OrderService>();
+            builder.Services.AddScoped<Areas.Customer.Services.OrderService>();
+            builder.Services.AddScoped<Areas.Admin.Services.OrderService>();
+            builder.Services.AddScoped<Areas.Vendor.Services.OrderService>();
             builder.Services.AddScoped<ICategoryQueryService,CategoryQueryService>();
             builder.Services.AddScoped<IProductQueryService,ProductQueryService>();
             builder.Services.AddScoped<ICartQueryService,CartQueryService>();

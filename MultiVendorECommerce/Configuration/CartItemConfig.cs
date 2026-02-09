@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PermissionBasedAuz.Models;
+using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Configuration
+namespace MultiVendorECommerce.Configuration
 {
     public class CartItemConfig : IEntityTypeConfiguration<CartItem>
     {

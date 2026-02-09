@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+﻿namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class ProductVariantEditVM:ProductVariantVM
     {

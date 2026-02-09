@@ -1,8 +1,8 @@
-﻿using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+﻿using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Shared.Services.Implementation
+namespace MultiVendorECommerce.Shared.Services.Implementation
 {
     public class ImageService : IImageService
     {

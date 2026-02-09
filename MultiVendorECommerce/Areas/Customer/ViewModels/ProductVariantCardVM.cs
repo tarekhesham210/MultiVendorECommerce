@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Areas.Customer.ViewModels
+﻿namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class ProductVariantCardVM
     {

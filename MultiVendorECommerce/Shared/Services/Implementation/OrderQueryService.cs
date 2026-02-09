@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Shared.Services.Implementation
+namespace MultiVendorECommerce.Shared.Services.Implementation
 {
     public class OrderQueryService : IOrderQueryService
     {
@@ -52,6 +52,39 @@ namespace PermissionBasedAuz.Shared.Services.Implementation
                     Total = o.Items.Sum(i => (i.Quantity * i.Price)) 
 
                 }).OrderByDescending(o=>o.Date).ToListAsync();
+        }
+
+        public async Task<Areas.Admin.ViewModels.OrderDetailsVM> GetNewOrderDetails(int id)
+        {
+           var order=await _context.Orders.Where(o => o.Id == id).Select(o => new Areas.Admin.ViewModels.OrderDetailsVM
+            {
+                Id = o.Id,
+                CustomerName = o.Customer.FirstName + " " + o.Customer.LastName,
+                OrderDate = o.CreatedAt,
+                PaymentMethod = o.PaymentMethod.ToString(),
+                PaymentStatus = o.PaymentStatus.ToString(),
+                OrderStatus = o.Status.ToString(),
+                ShippingAddress = o.ShippingAddress,
+                Phone = o.Phone,
+                CustomerId = o.CustomerId,
+               Products = o.Items.Select(i => new Areas.Admin.ViewModels.OrderItemDetailsVM
+                {
+                    ProductName = i.Variant.Product.Name,
+                    Price = i.Price,
+                    Quantity = i.Quantity,
+                    Total = i.Price * i.Quantity,
+                    ItemID=i.Id,
+                    ProductId=i.Variant.ProductId,
+                    VariantId=i.ProductVariantId,
+                    VendorId=i.VendorId,
+                    IsVendorConfirmed=i.VendorConfirmation,
+                    
+                    
+                }).ToList(),
+                GrandTotal = o.Items.Sum(i => (i.Price * i.Quantity)) ,
+            }).FirstOrDefaultAsync();
+            order.GrandTotal += order.Shipping;
+            return order;
         }
     }
 }

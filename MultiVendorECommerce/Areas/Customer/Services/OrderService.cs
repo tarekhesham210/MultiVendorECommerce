@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.Storage;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Areas.Customer.Services
+namespace MultiVendorECommerce.Areas.Customer.Services
 {
     public class OrderService
     {
@@ -51,6 +51,7 @@ namespace PermissionBasedAuz.Areas.Customer.Services
             {
                 CartItems = cartDetails.cartItems,
                 SubTotal = cartDetails.cartItems.Sum(i => i.TotalPrice),
+                PaymentMethod=PaymentMethod.Cash
             };
             return checkout;
         }
@@ -138,6 +139,35 @@ namespace PermissionBasedAuz.Areas.Customer.Services
             var customer = await _customerRepository.GetCustomerByUserIdAsync(userId) ?? throw new NotFoundException("Customer profile not found");
             var orders = await _orderQueryService.GetCustomerOrders(customer.Id);
             return orders;
+        }
+
+        public async Task CancelOrder(string userId, int orderId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new UnauthorizedException("you have to login first");
+            }
+            if (orderId <= 0) throw new ValidationException("Invalid order");
+            var customer = await _customerRepository.GetCustomerByUserIdAsync(userId) ?? throw new NotFoundException("Customer profile not found");
+            var order = await _orderRepository.GetOrderByCustomerIdAsync(customer.Id,orderId) ?? throw new NotFoundException("Order not found");
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                order.Status = OrderStatus.Cancelled;
+                foreach (var variant in order.Items)
+                {
+                    var oldQuantit = variant.Variant.StockQuantity;
+                    variant.Variant.SetStockQuantity(oldQuantit + variant.Quantity);
+                }
+                order.Items.Clear();
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
     }
 }

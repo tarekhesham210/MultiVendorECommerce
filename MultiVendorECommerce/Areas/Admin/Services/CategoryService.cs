@@ -1,15 +1,15 @@
 ﻿
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Areas.Admin.Services
+namespace MultiVendorECommerce.Areas.Admin.Services
 {
     public class CategoryService
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using PermissionBasedAuz.Models;
+using MultiVendorECommerce.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace PermissionBasedAuz.Areas.Admin.ViewModels
+namespace MultiVendorECommerce.Areas.Admin.ViewModels
 {
     public class CategoryVM
     {

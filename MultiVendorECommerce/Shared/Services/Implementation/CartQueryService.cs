@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Shared.Services.Implementation
+namespace MultiVendorECommerce.Shared.Services.Implementation
 {
     public class CartQueryService:ICartQueryService
     {

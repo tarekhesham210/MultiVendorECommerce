@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.ViewModels;
-using PermissionBasedAuz.Exceptions;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.ViewModels;
+using MultiVendorECommerce.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
 
-namespace PermissionBasedAuz.Services
+namespace MultiVendorECommerce.Services
 {
     public class VendorService
     {

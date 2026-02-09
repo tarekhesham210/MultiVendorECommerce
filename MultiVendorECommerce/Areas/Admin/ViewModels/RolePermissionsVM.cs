@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Shared.ViewModels;
+﻿using MultiVendorECommerce.Shared.ViewModels;
 
-namespace PermissionBasedAuz.Areas.Admin.ViewModels
+namespace MultiVendorECommerce.Areas.Admin.ViewModels
 {
     public class RolePermissionsVM
     {

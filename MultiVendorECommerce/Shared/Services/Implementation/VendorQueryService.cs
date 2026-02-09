@@ -1,9 +1,9 @@
-﻿using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.Shared.Enums;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
-using PermissionBasedAuz.Shared.Services.Interfaces;
+﻿using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.Services.Interfaces;
 
-namespace PermissionBasedAuz.Shared.Services.Implementation
+namespace MultiVendorECommerce.Shared.Services.Implementation
 {
     public class VendorQueryService: IVendorQueryService
     {

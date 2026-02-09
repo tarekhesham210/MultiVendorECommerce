@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PermissionBasedAuz.Controllers
+namespace MultiVendorECommerce.Controllers
 {
     public class ErrorController : Controller
     {

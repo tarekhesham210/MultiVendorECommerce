@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
 
-namespace PermissionBasedAuz.Shared.Services.Interfaces
+namespace MultiVendorECommerce.Shared.Services.Interfaces
 {
     public interface ICategoryQueryService
     {

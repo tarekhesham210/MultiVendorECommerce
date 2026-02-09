@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
-using PermissionBasedAuz.Exceptions;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.ViewModels;
 using System.Diagnostics.Eventing.Reader;
 
-namespace PermissionBasedAuz.Filters
+namespace MultiVendorECommerce.Filters
 {
     public class DomainExceptionFilter : IExceptionFilter
     {

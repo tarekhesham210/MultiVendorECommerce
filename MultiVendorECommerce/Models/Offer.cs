@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Models
+﻿namespace MultiVendorECommerce.Models
 {
     public class Offer
     {

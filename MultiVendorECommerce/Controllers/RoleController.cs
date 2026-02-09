@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.ViewModels;
 using System.Security.Claims;
 
-namespace PermissionBasedAuz.Controllers
+namespace MultiVendorECommerce.Controllers
 {
     public class RoleController : Controller
     {

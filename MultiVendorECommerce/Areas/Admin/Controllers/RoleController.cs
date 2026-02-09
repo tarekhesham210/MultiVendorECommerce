@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuz.Areas.Admin.Services;
-using PermissionBasedAuz.Areas.Admin.ViewModels;
-using PermissionBasedAuz.Constants;
-using PermissionBasedAuz.Models;
+using MultiVendorECommerce.Areas.Admin.Services;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Constants;
+using MultiVendorECommerce.Models;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuz.Areas.Admin.Controllers
+namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class RoleController : Controller

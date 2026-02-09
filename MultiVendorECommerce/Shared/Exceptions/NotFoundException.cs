@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Exceptions
+﻿namespace MultiVendorECommerce.Exceptions
 {
     public class NotFoundException : DomainException
     {

@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Models;
+﻿using MultiVendorECommerce.Models;
 
-namespace PermissionBasedAuz.Areas.Vendor.ViewModels
+namespace MultiVendorECommerce.Areas.Vendor.ViewModels
 {
     public class OfferVM
     {

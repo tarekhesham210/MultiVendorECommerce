@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Enums;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
 
-namespace PermissionBasedAuz.Shared.Repositories.Implementations
+namespace MultiVendorECommerce.Shared.Repositories.Implementations
 {
     public class OrderRepo : IOrderRepository
     {
@@ -24,9 +25,15 @@ namespace PermissionBasedAuz.Shared.Repositories.Implementations
             return await _context.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
-        public Task<List<Order>> GetOrdersByCustomerIdAsync(int customerId)
+        public async Task<Order?> GetOrderByCustomerIdAsync(int customerId,int orderId)
         {
-            throw new NotImplementedException();
+            return await _context.Orders.Include(o=>o.Items).ThenInclude(i=>i.Variant).FirstOrDefaultAsync(o => o.CustomerId == customerId && o.Id==orderId);
+        }
+
+        public async Task<IEnumerable<Order>> GetPendingOrdersAsync()
+        {
+            return await _context.Orders.Where(o => o.Status == OrderStatus.Pending).ToListAsync();
+
         }
 
         public async Task SaveAsync()

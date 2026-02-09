@@ -1,6 +1,6 @@
-﻿using PermissionBasedAuz.Shared.Enums;
+﻿using MultiVendorECommerce.Shared.Enums;
 
-namespace PermissionBasedAuz.Models
+namespace MultiVendorECommerce.Models
 {
     public class Order
     {

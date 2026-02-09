@@ -1,4 +1,4 @@
-﻿namespace PermissionBasedAuz.Areas.Admin.ViewModels
+﻿namespace MultiVendorECommerce.Areas.Admin.ViewModels
 {
     public class CategoryWithAttributeVM:CategoryVM
     {

@@ -1,7 +1,7 @@
-﻿using PermissionBasedAuz.Areas.Customer.ViewModels;
-using PermissionBasedAuz.Areas.Vendor.ViewModels;
+﻿using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Areas.Vendor.ViewModels;
 
-namespace PermissionBasedAuz.Shared.Services.Interfaces
+namespace MultiVendorECommerce.Shared.Services.Interfaces
 {
     public interface IProductQueryService
     {

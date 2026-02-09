@@ -1,8 +1,8 @@
-﻿using PermissionBasedAuz.Data;
-using PermissionBasedAuz.Models;
-using PermissionBasedAuz.Shared.Repositories.Interfaces;
+﻿using MultiVendorECommerce.Data;
+using MultiVendorECommerce.Models;
+using MultiVendorECommerce.Shared.Repositories.Interfaces;
 
-namespace PermissionBasedAuz.Shared.Repositories.Implementations
+namespace MultiVendorECommerce.Shared.Repositories.Implementations
 {
     public class CartItemRepo : ICartItemRepository
     {
