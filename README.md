@@ -2,7 +2,7 @@
 ASP.NET Core MVC e-commerce web application.
 
 ## Tech Stack
-- ASP.NET Core MVC (.NET 8)
+- ASP.NET Core MVC (.NET 6)
 - Entity Framework Core
 - SQL Server
 - Identity
