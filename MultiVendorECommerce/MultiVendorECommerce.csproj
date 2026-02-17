@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Auth\ViewModels\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Storage\Uploads\CategoriesImages\" />
     <Folder Include="Storage\Uploads\UsersImages\" />
   </ItemGroup>

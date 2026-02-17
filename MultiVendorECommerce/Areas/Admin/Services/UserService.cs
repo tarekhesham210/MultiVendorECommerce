@@ -74,15 +74,18 @@ namespace MultiVendorECommerce.Areas.Admin.Services
 
      
 
-        public  List<InternalUserVM> GetInternalUsers()
+        public async Task<PagedResult<InternalUserVM>> GetInternalUsers(int pageNumber=1,int pageSize=10)
         {
-            return  _userManager.Users.Where(u => u.UserType == UserType.Internal).Select(u=>new InternalUserVM
+            return await _userManager.Users
+                .Where(u => u.UserType == UserType.Internal)
+                .OrderByDescending(u=>u.Id)
+                .Select(u=>new InternalUserVM
             {
                 Email = u.Email,
                 Id = u.Id,
                 UserName = u.UserName,
                 Userstatus = u.LockoutEnd == null ? Userstatus.Active : Userstatus.Suspended
-            }).ToList(); 
+            }).ToPagedListAsync<InternalUserVM>(pageNumber,pageSize); 
             
         }
 
@@ -97,7 +100,6 @@ namespace MultiVendorECommerce.Areas.Admin.Services
             {
                 throw new NotFoundException("Role not found.");
             }
-           
             var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
             var usersInRoleVM = new UsersInRoleVM
             {

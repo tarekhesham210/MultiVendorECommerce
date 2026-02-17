@@ -94,7 +94,7 @@ namespace MultiVendorECommerce.Areas.Admin.Services
             {
                 throw new NotFoundException("Role is not found");
             }
-            var allPermessions = PermissionHelper.GetAllPermissions();
+            var allPermessions = PermissionHelper.GetAllPermissions(role.UserType);
             var rolepermissions = await _roleManager.GetClaimsAsync(role);
 
             var model = new RolePermissionsVM

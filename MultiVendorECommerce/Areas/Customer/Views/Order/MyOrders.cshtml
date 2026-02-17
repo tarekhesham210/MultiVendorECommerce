@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OrdersSummaryVM>
+﻿@using MultiVendorECommerce.Shared.ViewModels
+@model PagedResult<OrdersSummaryVM>
 
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
@@ -16,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    @foreach (var order in Model)
+                    @foreach (var order in Model.Items)
                     {
                         <tr>
                             <td class="align-middle">#@order.OrderId</td>
@@ -41,13 +42,27 @@
                     }
                 </tbody>
             </table>
-            @if (!Model.Any())
+            @if (!Model.Items.Any())
             {
                 <div class="text-center py-5">
                     <p>You haven't placed any orders yet.</p>
                     <a href="/Shop" class="btn btn-primary">Start Shopping</a>
                 </div>
             }
-        </div>
+
+    @*         @{
+                var queryString = Context.Request.Query
+                .Where(q => q.Key != "page")
+                .ToDictionary(q => q.Key, q => q.Value.ToString());
+
+                var url = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Context.Request.Path.Value, queryString);
+
+                ViewData["UrlTemplate"] = $"{url}{(url.Contains("?") ? "&" : "?")}page={{page}}";
+            } *@
+            <pager current-page="@Model.CurrentPage" total-pages="@Model.TotalPages"></pager>
+@*             <partial name="_PaginationPartial" model="@Model" />
+ *@        </div>
+      
+         
     </div>
 </div>

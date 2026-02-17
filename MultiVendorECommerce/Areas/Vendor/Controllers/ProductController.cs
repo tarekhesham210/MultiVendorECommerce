@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Areas.Vendor.Services;
 using MultiVendorECommerce.Areas.Vendor.ViewModels;
 using System.Security.Claims;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace MultiVendorECommerce.Areas.Vendor.Controllers
 {
     [Area("Vendor")]
+    [Authorize(Roles ="Vendor")]
     public class ProductController : Controller
     {
         private readonly ProductService _productService;

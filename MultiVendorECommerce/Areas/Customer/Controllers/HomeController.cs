@@ -58,9 +58,17 @@ namespace MultiVendorECommerce.Areas.Customer.Controllers
             return View(product);
         }
 
-        public IActionResult cart()
+        [HttpGet]
+        public async Task<IActionResult> LiveSearch(string term)
         {
-            return View();
+            var products = await _homeService.GetLiveSearchResultsAsync(term);
+            return PartialView("_SearchResultPartial", products);
+        }
+        [HttpGet]
+        public async Task<IActionResult> SearchResult(string searchTerm, string sortBy, int page = 1)
+        {
+            var products = await _homeService.GetProductsBySearchTermAsync(searchTerm, sortBy,page);
+            return View(products);
         }
     }
 }

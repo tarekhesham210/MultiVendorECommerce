@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MultiVendorECommerce.Attribute;
+using MultiVendorECommerce.Attributes;
 using MultiVendorECommerce.Constants;
 using MultiVendorECommerce.Models;
 using MultiVendorECommerce.Shared.Enums;

@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Areas.Admin.Services;
-using System.Threading.Tasks;
+using MultiVendorECommerce.Constants;
 
 namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
@@ -15,25 +16,31 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ApprovedVendors()
+        [Authorize(Policy =Permissions.Admin.Vendor.ViewAprroved)]
+        public async Task<IActionResult> ApprovedVendors(int page=1)
         {
-            var vendors = await _vendorService.GetApprovedVendorsAsync();
+            var vendors = await _vendorService.GetApprovedVendorsAsync(page);
             return View(vendors);
         }
         [HttpGet]
-        public async Task<IActionResult> PendingVendors()
+        [Authorize(Policy = Permissions.Admin.Vendor.ViewPending)]
+
+        public async Task<IActionResult> PendingVendors(int page=1)
         {
-            var vendors = await _vendorService.GetPendingVendorsAsync();
+            var vendors = await _vendorService.GetPendingVendorsAsync(page);
             return View(vendors);
         }
         [HttpGet]
-        public async Task<IActionResult> RejectedVendors()
+        [Authorize(Policy = Permissions.Admin.Vendor.ViewRejected)]
+
+        public async Task<IActionResult> RejectedVendors(int page=1)
         {
-            var rejectedVendors = await _vendorService.GetRejectedVendorsAsync();
+            var rejectedVendors = await _vendorService.GetRejectedVendorsAsync(page);
             return View(rejectedVendors);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Vendor.Reject)]
         public async Task<IActionResult> RejectVendor(int id)
         {
             if (id <= 0)
@@ -47,6 +54,7 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Vendor.Suspend)]
         public async Task<IActionResult> SuspendVendor(int id)
         {
             if (id <= 0)
@@ -60,6 +68,7 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Vendor.Aprrove)]
         public async Task<IActionResult> ApproveVendor(int id)
         {
             if (id <= 0)
@@ -73,6 +82,7 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Admin.Vendor.ViewDetails)]
         public async Task<IActionResult> VendorDetails(int id)
         {
             var vendor = await _vendorService.GetVendorDetails(id);         

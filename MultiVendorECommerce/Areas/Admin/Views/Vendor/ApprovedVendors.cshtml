@@ -1,4 +1,5 @@
-﻿@model List<VendorUserVM>
+﻿@using MultiVendorECommerce.Shared.ViewModels
+@model PagedResult<VendorUserVM>
 @{
     ViewData["Title"] = "Approved Vendors";
 }
@@ -15,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var vendor in Model)
+        @foreach (var vendor in Model.Items)
         {
             <tr>
                 <td>@vendor.Name</td>
@@ -36,3 +37,4 @@
         }
     </tbody>
 </table>
+<pager current-page="@Model.CurrentPage" total-pages="@Model.TotalPages"></pager>

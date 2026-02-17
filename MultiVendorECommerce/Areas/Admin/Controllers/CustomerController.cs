@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Areas.Admin.Services;
-using System.Threading.Tasks;
+using MultiVendorECommerce.Constants;
 
 namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
@@ -13,14 +14,16 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         {
             _customerService = customerService;
         }
-
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        [Authorize(Policy =Permissions.Admin.Customer.ViewAll)]
+        public async Task<IActionResult> Index(int page=1)
         {
-            var customers =await _customerService.GetAllCustomers();
+            var customers =await _customerService.GetAllCustomers(page);
             return View(customers);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Customer.Block)]
         public async Task<IActionResult> BlockCustomer(int id)
         {
             if(id<=0)
@@ -35,6 +38,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Customer.Activate)]
+
         public async Task<IActionResult> ActivateCustomer(int id)
         {
             if(id<=0)
@@ -48,6 +53,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Policy = Permissions.Admin.Customer.ViewDetails)]
+
         public async Task<IActionResult> CustomerDetails(int id)
         {
             var customerDetails =await _customerService.GetCustomerDetails(id);

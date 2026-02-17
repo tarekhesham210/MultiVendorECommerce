@@ -1,4 +1,4 @@
-﻿using MultiVendorECommerce.Attribute;
+﻿using MultiVendorECommerce.Attributes;
 using MultiVendorECommerce.Constants;
 using System.ComponentModel.DataAnnotations;
 

@@ -4,7 +4,7 @@ namespace MultiVendorECommerce.Shared.Repositories.Interfaces
 {
     public interface IVendorRepository
     {
-        Task<IEnumerable<Vendor>> GetAllVendorsAsync();
+        IQueryable<Vendor> GetAllVendorsAsync();
         Task<Vendor?> GetVendorByIdAsync(int id);
         Task<bool> AddVendorAsync(Vendor vendor);
         Task SaveAsync();

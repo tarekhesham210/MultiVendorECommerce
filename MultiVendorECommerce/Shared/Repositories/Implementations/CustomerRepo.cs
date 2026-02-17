@@ -22,9 +22,9 @@ namespace MultiVendorECommerce.Shared.Repositories.Implementations
 
         }
 
-        public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
+        public  IQueryable<Customer> GetAllCustomersAsync()
         {
-            return await _context.Customers.Include(c=>c.User).AsNoTracking().ToListAsync(); 
+            return  _context.Customers.Include(c=>c.User).AsNoTracking(); 
         }
 
         public async Task<Customer?> GetCustomerByIdAsync(int id)

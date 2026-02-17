@@ -28,9 +28,9 @@ namespace MultiVendorECommerce.Shared.Repositories.Implementations
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Vendor>> GetAllVendorsAsync()
+        public IQueryable<Vendor> GetAllVendorsAsync()
         {
-           return await _context.Vendors.Include(v=>v.User).AsNoTracking().ToListAsync();
+            return  _context.Vendors.Include(v => v.User).AsNoTracking();
         }
 
         public async Task<Vendor?> GetVendorByIdAsync(int id)

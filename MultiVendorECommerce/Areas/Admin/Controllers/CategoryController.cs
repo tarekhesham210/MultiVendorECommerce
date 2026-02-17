@@ -3,6 +3,8 @@ using MultiVendorECommerce.Areas.Admin.ViewModels;
 using MultiVendorECommerce.Exceptions;
 using MultiVendorECommerce.Areas.Admin.Services;
 using MultiVendorECommerce.Shared.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using MultiVendorECommerce.Constants;
 
 namespace MultiVendorECommerce.Areas.Admin.Controllers
 {
@@ -18,6 +20,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
             _categoryQueryService = categoryQueryService;
         }
 
+        [HttpGet]
+        [Authorize(policy:Permissions.Admin.Category.View)]
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryService.GetAllCategoriesAsync();

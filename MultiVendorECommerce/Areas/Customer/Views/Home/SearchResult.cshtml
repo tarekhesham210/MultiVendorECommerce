@@ -1,0 +1,92 @@
+﻿@model SearchResultVM
+
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-12 col-md-12">
+            <div class="row pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6>Search Results: <span class="text-primary">"@Model.CurrentSearchTerm"</span></h6>
+                        <div class="ml-2">
+                            <div class="btn-group">
+                                <select class="form-control" onchange="location = this.value;">
+                                    <option value="@Url.Action("SearchResult", new { searchTerm = Model.CurrentSearchTerm, sortBy = "newest" })"
+                                            selected="@(Model.CurrentSortBy == "newest")">Newest</option>
+
+                                    <option value="@Url.Action("SearchResult", new { searchTerm = Model.CurrentSearchTerm, sortBy = "price_asc" })"
+                                            selected="@(Model.CurrentSortBy == "price_asc")">Price :min first</option>
+
+                                    <option value="@Url.Action("SearchResult", new { searchTerm = Model.CurrentSearchTerm, sortBy = "price_desc" })"
+                                            selected="@(Model.CurrentSortBy == "price_desc")">Price :max first</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.Products != null && Model.Products.Any())
+                {
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                            <div class="card product-item border-0 mb-4">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                    <a asp-action="ProductDetails" asp-controller="Home"
+                                       asp-route-productId="@product.ProductId"
+                                       asp-route-variantId="@product.Id">
+                                        <img class="img-fluid w-100" src="@ImageSettings.GetImageUrl(ImageSettings.ProudctsImagesFolder, product.MainImageUrl)" alt="">
+                                    </a>
+                                </div>
+                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                    <h6 class="text-truncate mb-3">@product.Name</h6>
+                                    <div class="d-flex justify-content-center">
+                                        @if (product.HasOffer)
+                                        {
+                                            <h6>@product.FinalPrice</h6>
+                                
+                                            <h6 class="text-muted ml-2"><del>@product.Price</del></h6>
+                                        }
+                                        else
+                                        {
+                                            <h6>@product.Price</h6>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between bg-light border">
+                                    <a asp-action="ProductDetails" asp-route-productId="@product.ProductId" asp-route-variantId="@product.Id" class="btn btn-sm text-dark p-0">
+                                        <i class="fas fa-eye text-primary mr-1"></i>View Detail
+                                    </a>
+                                    <button type="button" onclick="addToCart(@product.Id, 1)" class="btn btn-sm text-dark p-0">
+                                        <i class="fas fa-shopping-cart text-primary mr-1"></i> Add To Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center py-5">
+                        <h4>Did not found products with that name </h4>
+                    </div>
+                }
+
+                <div class="col-12 pt-3">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                    <a class="page-link" asp-action="SearchResult"
+                                       asp-route-searchTerm="@Model.CurrentSearchTerm"
+                                       asp-route-sortBy="@Model.CurrentSortBy"
+                                       asp-route-page="@i"> @i</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

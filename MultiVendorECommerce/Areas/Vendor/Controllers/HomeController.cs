@@ -7,6 +7,7 @@ using MultiVendorECommerce.Models;
 namespace MultiVendorECommerce.Areas.Vendor.Controllers
 {
     [Area("Vendor")]
+    [Authorize(Roles ="Vendor")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

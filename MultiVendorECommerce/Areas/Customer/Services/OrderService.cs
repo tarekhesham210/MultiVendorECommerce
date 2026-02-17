@@ -7,6 +7,7 @@ using MultiVendorECommerce.Models;
 using MultiVendorECommerce.Shared.Enums;
 using MultiVendorECommerce.Shared.Repositories.Interfaces;
 using MultiVendorECommerce.Shared.Services.Interfaces;
+using MultiVendorECommerce.Shared.ViewModels;
 
 namespace MultiVendorECommerce.Areas.Customer.Services
 {
@@ -130,7 +131,7 @@ namespace MultiVendorECommerce.Areas.Customer.Services
             return order;
         }
 
-        public async Task<IEnumerable<OrdersSummaryVM>> GetCustomerOrders(string userId)
+        public async Task<PagedResult<OrdersSummaryVM>> GetCustomerOrders(string userId)
         {
             if (string.IsNullOrEmpty(userId))
             {

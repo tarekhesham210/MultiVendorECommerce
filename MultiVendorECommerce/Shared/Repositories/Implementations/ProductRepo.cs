@@ -91,7 +91,7 @@ namespace MultiVendorECommerce.Shared.Repositories.Implementations
     
         public IQueryable<Product> GetAll()
         {
-            return _context.Products.AsNoTracking();
+            return _context.Products.AsNoTracking().AsQueryable();
         }
     }
 }

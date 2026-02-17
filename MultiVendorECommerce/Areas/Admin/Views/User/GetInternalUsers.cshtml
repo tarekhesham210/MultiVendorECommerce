@@ -1,6 +1,7 @@
 ﻿@using MultiVendorECommerce.Areas.Admin.ViewModels
 @using MultiVendorECommerce.Shared.Enums
-@model List<InternalUserVM>
+@using MultiVendorECommerce.Shared.ViewModels
+@model PagedResult<InternalUserVM>
 @{
     ViewData["Title"] = "Internal Users";
 }
@@ -15,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (var user in Model.Items)
         {
             <tr>
                 <td>@user.UserName</td>
@@ -40,4 +41,6 @@
         }
     </tbody>
 </table>
+<pager current-page="@Model.CurrentPage" total-pages="@Model.TotalPages"></pager>
+
 

@@ -29,6 +29,7 @@ namespace MultiVendorECommerce.Areas.Customer.Controllers
         {
             var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
            
+
             var cartCount = await _cartService.AddToCustomerCart(userId, VariantId, Quantity);
            
             if (cartCount == 0) 

@@ -36,10 +36,10 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <form asp-action="SearchResult" asp-controller="Home" method="get" >
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
-                    <div class="input-group-append">
+                    <input type="text" name="searchTerm"  id="live-search-input" class="form-control" placeholder="Search for products">
+                    <div class="input-group-append" id="live-search-results">
                         <span class="input-group-text bg-transparent text-primary">
                             <i class="fa fa-search"></i>
                         </span>
@@ -59,3 +59,4 @@
         </div>
     </div>
 </div>
+

@@ -4,7 +4,7 @@ namespace MultiVendorECommerce.Shared.Repositories.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task<IEnumerable<Customer>> GetAllCustomersAsync();
+        IQueryable<Customer> GetAllCustomersAsync();
         Task<Customer?> GetCustomerByIdAsync(int id);
         Task<Customer?> GetCustomerByUserIdAsync(string userId);
 

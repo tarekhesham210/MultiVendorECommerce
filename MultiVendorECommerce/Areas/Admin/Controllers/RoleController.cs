@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Areas.Admin.Services;
 using MultiVendorECommerce.Areas.Admin.ViewModels;
@@ -18,6 +19,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
             _roleService = roleService;
         }
 
+        [HttpGet]
+        [Authorize(Policy =Permissions.Admin.Roles.View)]
         public async Task<IActionResult> Index()
         {
             var roles =await _roleService.GetAllRoles();
@@ -25,6 +28,7 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
             return View(roles);
         }
         [HttpGet]
+        
         public IActionResult CreateRole()
         {
             var rolesType = _roleService.GetRoleTypes();

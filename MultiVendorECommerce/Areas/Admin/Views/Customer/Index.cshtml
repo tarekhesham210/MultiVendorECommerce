@@ -1,4 +1,5 @@
-﻿@model List<CustomerVM>
+﻿@using MultiVendorECommerce.Shared.ViewModels
+@model PagedResult<CustomerVM>
 @{
     ViewData["Title"] = "Customer Management";
 }
@@ -16,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var customer in Model)
+        @foreach (var customer in Model.Items)
         {
             <tr>
                 <td>@customer.Email</td>

@@ -8,12 +8,18 @@
     <h3>Editing Permissions for Role: @Model.RoleName</h3>
 
     <div class="form-group">
+        <div class="form-check mb-3 pb-2 border-bottom">
+            <input type="checkbox" id="selectAll" class="form-check-input" />
+            <label class="form-check-label font-weight-bold" for="selectAll">
+                Select All
+            </label>
+        </div>
         @for (int i = 0; i < Model.Permissions.Count; i++)
         {
             <div class="form-check mb-2">
                 <input type="checkbox"
                        asp-for="Permissions[i].IsSelected"
-                       class="form-check-input" />
+                       class="form-check-input permission-checkbox" />
 
                 <label class="form-check-label">
                     @Model.Permissions[i].Name
@@ -27,4 +33,26 @@
     <button type="submit" class="btn btn-primary mt-3">
         Save Permissions
     </button>
+    <a asp-action="Index" asp-controller="Role" class="btn btn-secondary mt-3">Cancel</a>
 </form>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#selectAll').on('click', function () {
+                $('.permission-checkbox').prop('checked', this.checked);
+            });
+
+            $('.permission-checkbox').on('click', function () {
+                if ($('.permission-checkbox:checked').length == $('.permission-checkbox').length) {
+                    $('#selectAll').prop('checked', true);
+                } else {
+                    $('#selectAll').prop('checked', false);
+                }
+            });
+
+            if ($('.permission-checkbox:checked').length == $('.permission-checkbox').length && $('.permission-checkbox').length > 0) {
+                $('#selectAll').prop('checked', true);
+            }
+        });
+    </script>
+}

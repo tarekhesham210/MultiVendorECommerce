@@ -1,8 +1,10 @@
 ﻿using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Constants;
 using MultiVendorECommerce.Exceptions;
 using MultiVendorECommerce.Models;
 using MultiVendorECommerce.Shared.Enums;
 using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.ViewModels;
 
 namespace MultiVendorECommerce.Areas.Admin.Services
 {
@@ -26,9 +28,9 @@ namespace MultiVendorECommerce.Areas.Admin.Services
             await _vendorRepo.RejectVendorAsync(vendor);
         }
 
-        public async Task<IEnumerable<VendorUserVM>> GetPendingVendorsAsync()
+        public async Task<PagedResult<VendorUserVM>> GetPendingVendorsAsync(int pageNumber=1,int pageSize=10)
         {
-            return (await _vendorRepo.GetAllVendorsAsync()).Where(v => v.VendorStatus == VendorStatus.Pending)
+            return await _vendorRepo.GetAllVendorsAsync().Where(v => v.VendorStatus == VendorStatus.Pending)
                 .Select(v => new VendorUserVM
                 {
                     Id = v.Id,
@@ -39,11 +41,13 @@ namespace MultiVendorECommerce.Areas.Admin.Services
                     vendorStatus = v.VendorStatus,
                     CreatedAt = v.CreatedAt
 
-                }).ToList();
+                }).ToPagedListAsync(pageNumber,pageSize);
         }
-        public async Task<IEnumerable<VendorUserVM>> GetApprovedVendorsAsync()
+        public async Task<PagedResult<VendorUserVM>> GetApprovedVendorsAsync(int pageNumber=1,int pageSize=10)
         {
-            return (await _vendorRepo.GetAllVendorsAsync()).Where(v => v.VendorStatus == VendorStatus.Approved)
+            return await  _vendorRepo.GetAllVendorsAsync()
+                .Where(v => v.VendorStatus == VendorStatus.Approved)
+                .OrderByDescending(v=>v.CreatedAt)
                 .Select(v => new VendorUserVM
                 {
                     Id = v.Id,
@@ -54,7 +58,7 @@ namespace MultiVendorECommerce.Areas.Admin.Services
                     vendorStatus = v.VendorStatus,
                     CreatedAt = v.CreatedAt
 
-                }).ToList();
+                }).ToPagedListAsync(pageNumber,pageSize);
         }
 
         public async Task ApproveVendor(int Id)
@@ -83,9 +87,11 @@ namespace MultiVendorECommerce.Areas.Admin.Services
         }
 
 
-        internal async Task<List<VendorUserVM>> GetRejectedVendorsAsync()
+        internal async Task<PagedResult<VendorUserVM>> GetRejectedVendorsAsync(int pageNumber=1,int pageSize=10)
         {
-            var rejectedVendors = (await _vendorRepo.GetAllVendorsAsync()).Where(v => v.VendorStatus == VendorStatus.Rejected)
+            var rejectedVendors = await _vendorRepo.GetAllVendorsAsync()
+                .Where(v => v.VendorStatus == VendorStatus.Rejected)
+                .OrderByDescending(v=>v.CreatedAt)
                 .Select(v => new VendorUserVM
                 {
                     Id = v.Id,
@@ -95,7 +101,7 @@ namespace MultiVendorECommerce.Areas.Admin.Services
                     Name = v.User.UserName,
                     vendorStatus = v.VendorStatus,
                     CreatedAt = v.CreatedAt
-                }).ToList();
+                }).ToPagedListAsync(pageNumber,pageSize);
             return rejectedVendors;
         }
 

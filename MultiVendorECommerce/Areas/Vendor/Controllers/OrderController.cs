@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Areas.Vendor.Services;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 namespace MultiVendorECommerce.Areas.Vendor.Controllers
 {
     [Area("Vendor")]
+    [Authorize(Roles ="Vendor")]
     public class OrderController : Controller
     {
         private readonly OrderService _orderService;

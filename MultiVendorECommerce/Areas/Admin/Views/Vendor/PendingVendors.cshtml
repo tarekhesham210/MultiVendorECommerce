@@ -1,4 +1,5 @@
-﻿@model List<VendorUserVM>
+﻿@using MultiVendorECommerce.Shared.ViewModels
+@model PagedResult<VendorUserVM>
 @{
     ViewData["Title"] = "Pending Vendors";
 }
@@ -15,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var vendor in Model)
+        @foreach (var vendor in Model.Items)
         {
             <tr>
                 <td>@vendor.Name</td>
@@ -26,12 +27,12 @@
 
                 <td>
 
-                    <form asp-area="Admin" asp-action="ApproveVendor" asp-controller="Admin"
+                    <form asp-area="Admin" asp-action="ApproveVendor" asp-controller="Vendor"
                           asp-route-id="@vendor.Id" asp-route-userId="@vendor.userId" class="d-inline">
 
                         <button type="submit" class="btn btn-success">Approve</button>
                     </form>
-                    <form asp-area="Admin" asp-action="RejectVendor" asp-controller="Admin"
+                    <form asp-area="Admin" asp-action="RejectVendor" asp-controller="Vendor"
                           asp-route-id="@vendor.Id" class="d-inline" onsubmit="return confirm('Are you sure you want to reject this vendor request?');">
 
                         <button type="submit" class="btn btn-danger">Reject</button>
@@ -42,6 +43,6 @@
     </tbody>
 </table>
 
-
+<pager current-page="@Model.CurrentPage" total-pages="@Model.TotalPages"></pager>
 
 

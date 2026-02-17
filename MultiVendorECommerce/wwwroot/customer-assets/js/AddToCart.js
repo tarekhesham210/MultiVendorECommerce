@@ -25,7 +25,7 @@
         error: function (xhr) {
             if (xhr.status === 401) {
                 Swal.fire('Login Required', 'Please login first', 'info').then(() => {
-                    window.location.href = "/Account/Login";
+                    window.location.href = "/Auth/Account/Login";
                 });
             } else {
                 Swal.fire('Error', 'Something went wrong', 'error');

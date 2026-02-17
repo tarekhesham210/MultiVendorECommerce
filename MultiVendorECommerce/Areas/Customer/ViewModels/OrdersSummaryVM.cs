@@ -1,4 +1,6 @@
-﻿namespace MultiVendorECommerce.Areas.Customer.ViewModels
+﻿using MultiVendorECommerce.Shared.ViewModels;
+
+namespace MultiVendorECommerce.Areas.Customer.ViewModels
 {
     public class OrdersSummaryVM
     {

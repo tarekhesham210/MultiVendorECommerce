@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MultiVendorECommerce.Attribute
+namespace MultiVendorECommerce.Attributes
 {
     public class AllowedExtensionsAttribute : ValidationAttribute
     {

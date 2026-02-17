@@ -10,19 +10,20 @@ using System.Collections;
 
 namespace MultiVendorECommerce.Shared.Services.Implementation
 {
-    public class ProductQueryService:IProductQueryService
+    public class ProductQueryService : IProductQueryService
     {
         private readonly ApplicationDb _context;
-       
-        public ProductQueryService(ApplicationDb context)
+        private readonly IProductRepository _productRepo;
+        public ProductQueryService(ApplicationDb context, IProductRepository productRepo)
         {
             _context = context;
+            _productRepo = productRepo;
         }
 
         public async Task<EditProductVM?> GetProductForEditAsync(int productId)
         {
             var product = await _context.Products
-                .Include(p=>p.Images)
+                .Include(p => p.Images)
            .Include(p => p.AttributeValues)
            .Include(p => p.Variants).ThenInclude(v => v.VariantValues)
            .Include(p => p.Variants).ThenInclude(v => v.CurrentOffer)
@@ -46,18 +47,18 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
                 Name = product.Name,
                 Description = product.Description,
                 CategoryId = product.CategoryId,
-                ExistingImages=product.Images.Select(i=>new Areas.Vendor.ViewModels.ProductImageVM
+                ExistingImages = product.Images.Select(i => new Areas.Vendor.ViewModels.ProductImageVM
                 {
-                    Id=i.Id,
+                    Id = i.Id,
                     ImageUrl = i.ImageUrl,
-                    IsMain=i.IsMain,
+                    IsMain = i.IsMain,
                 }).ToList(),
                 // 1. Fixed Attributes (IsVariant = false)
                 FixedAttributesValues = allCategoryAttributes.Where(a => !a.IsVariant).Select(a => new ProductAttributeValueVM
                 {
                     AttributeId = a.Id,
                     AttributeName = a.Name,
-                    SelectedOptionId = product.AttributeValues.FirstOrDefault(av => av.CategoryAttributeId == a.Id)?.CategoryAttributeOptionId ??0,
+                    SelectedOptionId = product.AttributeValues.FirstOrDefault(av => av.CategoryAttributeId == a.Id)?.CategoryAttributeOptionId ?? 0,
                     Options = a.Options.Select(o => new CategoryAttributeOptionVM { Id = o.Id, Value = o.Value }).ToList()
                 }).ToList(),
 
@@ -78,11 +79,11 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
                     Price = v.Price,
                     StockQuantity = v.StockQuantity,
                     SelectedOptionIds = v.VariantValues.Select(vv => vv.CategoryAttributeOptionId).ToList(),
-                    HasOffer=v.CurrentOffer!=null,
-                    DiscountPercentage=v.CurrentOffer?.DiscountPercentage,
-                    StartDate=v.CurrentOffer?.StartDate,
-                    EndDate=v.CurrentOffer?.EndDate,
-                    IsActive=v.CurrentOffer?.IsActive ?? false,
+                    HasOffer = v.CurrentOffer != null,
+                    DiscountPercentage = v.CurrentOffer?.DiscountPercentage,
+                    StartDate = v.CurrentOffer?.StartDate,
+                    EndDate = v.CurrentOffer?.EndDate,
+                    IsActive = v.CurrentOffer?.IsActive ?? false,
                 }).ToList()
             };
 
@@ -102,7 +103,7 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
                 {
                     Id = p.Id,
                     Name = p.Product.Name,
-                    ProductId=p.ProductId,
+                    ProductId = p.ProductId,
                     MainImageUrl = p.Product.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl,
                     OldPrice = p.Price,
                     NewPrice = p.FinalPrice,
@@ -113,7 +114,7 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
             return products;
 
         }
-        
+
         public async Task<IEnumerable<ProductVariantCardVM>> GetProductsByCategoryIdAsync(int id)
         {
             var categoryProducts = await _context.ProductVariants
@@ -125,8 +126,8 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
               ProductId = c.ProductId,
               HasOffer = c.CurrentOffer != null,
               Price = c.Price,
-              Discount=c.CurrentOffer!=null? (int)c.CurrentOffer.DiscountPercentage:0,
-              MainImageUrl = c.Image.ImageUrl ?? c.Product.Images.First().ImageUrl, 
+              Discount = c.CurrentOffer != null ? (int)c.CurrentOffer.DiscountPercentage : 0,
+              MainImageUrl = c.Image.ImageUrl ?? c.Product.Images.First().ImageUrl,
           }).ToListAsync();
             return categoryProducts;
         }
@@ -141,53 +142,53 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
               ProductId = c.ProductId,
               HasOffer = c.CurrentOffer != null,
               Price = c.Price,
-              Discount=c.CurrentOffer!=null? (int)c.CurrentOffer.DiscountPercentage:0,
+              Discount = c.CurrentOffer != null ? (int)c.CurrentOffer.DiscountPercentage : 0,
               MainImageUrl = c.Image.ImageUrl ?? c.Product.Images.First().ImageUrl,
-              
+
           }).ToListAsync();
             return categoryProducts;
         }
 
-        public async Task<ProductDetailsVM> GetProductDetailes(int id,int? variantId)
+        public async Task<ProductDetailsVM> GetProductDetailes(int id, int? variantId)
         {
-           var product= await _context.Products.Where(p => p.Id == id)
-                .Select(p => new ProductDetailsVM
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Description = p.Description,
-                    CategoryName=p.Category.Name,
-                    CategoryId=p.Category.Id,
-                    GalleryImages=p.Images.Select(i=>i.ImageUrl).ToList(),
-                    SpecificationAttributes=p.AttributeValues
-                           .Select(attr=>new FixedAttributeVM
-                           {
-                               Name=attr.CategoryAttribute.Name,
-                               Value=attr.CategoryAttributeOption.Value,
+            var product = await _context.Products.Where(p => p.Id == id)
+                 .Select(p => new ProductDetailsVM
+                 {
+                     Id = p.Id,
+                     Name = p.Name,
+                     Description = p.Description,
+                     CategoryName = p.Category.Name,
+                     CategoryId = p.Category.Id,
+                     GalleryImages = p.Images.Select(i => i.ImageUrl).ToList(),
+                     SpecificationAttributes = p.AttributeValues
+                            .Select(attr => new FixedAttributeVM
+                            {
+                                Name = attr.CategoryAttribute.Name,
+                                Value = attr.CategoryAttributeOption.Value,
 
-                           }).ToList(),
-                    Variants=p.Variants.Select(v=>new VariantDetailsVM
-                    {
-                        Id=v.Id,
-                        SKU=v.SKU,
-                        Price=v.Price,
-                        Stock=v.StockQuantity,
-                        ImageUrl=v.Image.ImageUrl,
-                        OfferPrice=v.FinalPrice,
-                        OptionIds=v.VariantValues.Select(vv=>vv.CategoryAttributeOptionId).ToList(),
-                        
-                    }).ToList(),
-                })
-                .FirstOrDefaultAsync(p => p.Id == id);
+                            }).ToList(),
+                     Variants = p.Variants.Select(v => new VariantDetailsVM
+                     {
+                         Id = v.Id,
+                         SKU = v.SKU,
+                         Price = v.Price,
+                         Stock = v.StockQuantity,
+                         ImageUrl = v.Image.ImageUrl,
+                         OfferPrice = v.FinalPrice,
+                         OptionIds = v.VariantValues.Select(vv => vv.CategoryAttributeOptionId).ToList(),
 
-            var existVariavtOptions=product.Variants.SelectMany(v=>v.OptionIds).Distinct().ToList();
-            var selection =await _context.CategoryAttributes
-                .Where(ca => ca.CategoryId == product.CategoryId&&ca.IsVariant)
+                     }).ToList(),
+                 })
+                 .FirstOrDefaultAsync(p => p.Id == id);
+
+            var existVariavtOptions = product.Variants.SelectMany(v => v.OptionIds).Distinct().ToList();
+            var selection = await _context.CategoryAttributes
+                .Where(ca => ca.CategoryId == product.CategoryId && ca.IsVariant)
                 .Select(ca => new ProductAttributeVM
                 {
                     AttributeId = ca.Id,
                     Name = ca.Name,
-                    Values = ca.Options.Where(o=>existVariavtOptions.Contains(o.Id))
+                    Values = ca.Options.Where(o => existVariavtOptions.Contains(o.Id))
                     .Select(o => new ProductAttributeOptionVM
                     {
                         Id = o.Id,
@@ -207,6 +208,62 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
             }
 
             return product;
+        }
+
+        public async Task<IEnumerable<ProductVariantCardVM>> LiveSearchProductsAsync(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term)) return new List<ProductVariantCardVM>();
+            var results = await _context.ProductVariants
+                .Where(p => p.Product.Name.Contains(term) || p.Product.Category.Name.Contains(term))
+                .OrderByDescending(p => p.Id)
+                .Take(5)
+                .Select(c => new ProductVariantCardVM
+                {
+                    Id = c.Id,
+                    Name = c.Product.Name,
+                    ProductId = c.ProductId,
+                    HasOffer = c.CurrentOffer != null,
+                    Price = c.Price,
+                    Discount = c.CurrentOffer != null ? (int)c.CurrentOffer.DiscountPercentage : 0,
+                    MainImageUrl = c.Image.ImageUrl ?? c.Product.Images.First().ImageUrl,
+                }).ToListAsync();
+            return results;
+        }
+
+        public async Task<(IEnumerable<ProductVariantCardVM>, int TotalCount)> GetProductsBySearchTermAsync
+            (string searchTerm, string sortBy, int pageSize=10,int pageNumber = 1) 
+        {
+            var query = _context.ProductVariants.AsNoTracking();
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.Where(pv => pv.Product.Name.Contains(searchTerm) || pv.Product.Description.Contains(searchTerm));
+            }
+
+
+            query = sortBy switch
+            {
+                "price_asc" => query.OrderBy(pv => pv.Price - (pv.Price)),
+                "price_desc" => query.OrderByDescending(pv => pv.Price),
+                "newest" => query.OrderByDescending(p => p.Id),
+                _ => query.OrderByDescending(p => p.Id)
+            };
+            int totalItems = await query.CountAsync();
+
+            var products = await query
+                 .Skip((pageNumber - 1) * pageSize)
+                 .Take(pageSize)
+                 .Select(p=> new ProductVariantCardVM
+                 {
+                     Id = p.Id,
+                     Name = p.Product.Name,
+                     ProductId = p.ProductId,
+                     HasOffer = p.CurrentOffer != null,
+                     Price = p.Price,
+                     Discount = p.CurrentOffer != null ? (int)p.CurrentOffer!.DiscountPercentage : 0,
+                     MainImageUrl = p.Image.ImageUrl??p.Product.Images.First().ImageUrl,
+                 }).ToListAsync();
+           
+            return (products, totalItems);
         }
     }
 }

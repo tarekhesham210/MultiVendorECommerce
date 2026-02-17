@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Constants;
 using MultiVendorECommerce.Data;
 using MultiVendorECommerce.Shared.Services.Interfaces;
+using MultiVendorECommerce.Shared.ViewModels;
 
 namespace MultiVendorECommerce.Shared.Services.Implementation
 {
@@ -39,7 +41,7 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
             }).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<OrdersSummaryVM>> GetCustomerOrders(int customerId)
+        public async Task<PagedResult<OrdersSummaryVM>> GetCustomerOrders(int customerId,int pageSize=10,int pageNumber=1)
         {
             return await _context.Orders
                 .Where(o => o.CustomerId == customerId)
@@ -51,7 +53,7 @@ namespace MultiVendorECommerce.Shared.Services.Implementation
                     ItemsCount = o.Items.Sum(i=>i.Quantity),
                     Total = o.Items.Sum(i => (i.Quantity * i.Price)) 
 
-                }).OrderByDescending(o=>o.Date).ToListAsync();
+                }).OrderByDescending(o=>o.Date).ToPagedListAsync<OrdersSummaryVM>(pageNumber,pageSize);
         }
 
         public async Task<Areas.Admin.ViewModels.OrderDetailsVM> GetNewOrderDetails(int id)

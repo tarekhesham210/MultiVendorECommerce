@@ -102,3 +102,26 @@
     
 })(jQuery);
 
+let debounceTimer;
+$("#live-search-input").on("keyup", function () {
+    let term = $(this).val();
+
+    clearTimeout(debounceTimer);
+
+    if (term.length < 2) {
+        $("#live-search-results").hide().html("");
+        return;
+    }
+
+    debounceTimer = setTimeout(function () {
+        $.get("Customer/Home/LiveSearch", { term: term }, function (data) {
+            $("#live-search-results").html(data).show();
+        });
+    }, 300);
+});
+
+$(document).on("click", function (e) {
+    if (!$(e.target).closest('.search-wrapper').length) {
+        $("#live-search-results").hide();
+    }
+});

@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MultiVendorECommerce.Areas.Customer.ViewModels;
+using MultiVendorECommerce.Areas.Vendor.ViewModels;
 using MultiVendorECommerce.Exceptions;
+using MultiVendorECommerce.Models;
 using MultiVendorECommerce.Shared.Enums;
 using MultiVendorECommerce.Shared.Repositories.Interfaces;
 using MultiVendorECommerce.Shared.Services.Implementation;
 using MultiVendorECommerce.Shared.Services.Interfaces;
+using System.Drawing.Printing;
+using System.Globalization;
 
 namespace MultiVendorECommerce.Areas.Customer.Services
 {
@@ -99,6 +103,31 @@ namespace MultiVendorECommerce.Areas.Customer.Services
             var bestSellers = await _productQueryService.GetProductsBestSellersAsync(count);
             return bestSellers;
                   
+        }
+    
+
+        internal async Task<IEnumerable<ProductVariantCardVM>> GetLiveSearchResultsAsync(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term)) return new List<ProductVariantCardVM>();
+
+            return await _productQueryService.LiveSearchProductsAsync(term);
+        }
+        public async Task<SearchResultVM> GetProductsBySearchTermAsync(string searchTerm, string sortBy,int? categoryId,int pageNumber=1,int pageSize=9)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm)) return new SearchResultVM();
+
+            var (products,totalCount) = await _productQueryService.GetProductsBySearchTermAsync(searchTerm,sortBy,pageSize, pageNumber);
+            var result = new SearchResultVM
+            {
+                Products = products.ToList(),
+                CurrentPage = pageNumber,
+                CurrentSortBy = sortBy,
+                CurrentSearchTerm = searchTerm,
+                SelectedCategoryId = categoryId,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
+
+            };
+            return result;
         }
         private async Task<IEnumerable<CategoryVM>> GetCategories()
         {

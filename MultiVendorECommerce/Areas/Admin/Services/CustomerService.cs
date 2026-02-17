@@ -1,7 +1,10 @@
-﻿using MultiVendorECommerce.Areas.Admin.ViewModels;
+﻿using Microsoft.EntityFrameworkCore;
+using MultiVendorECommerce.Areas.Admin.ViewModels;
+using MultiVendorECommerce.Constants;
 using MultiVendorECommerce.Exceptions;
 using MultiVendorECommerce.Shared.Enums;
 using MultiVendorECommerce.Shared.Repositories.Interfaces;
+using MultiVendorECommerce.Shared.ViewModels;
 
 namespace MultiVendorECommerce.Areas.Admin.Services
 {
@@ -16,10 +19,11 @@ namespace MultiVendorECommerce.Areas.Admin.Services
             _userService = userService;
         }
 
-        public async Task<List<CustomerVM>> GetAllCustomers()
+        public async Task<PagedResult<CustomerVM>> GetAllCustomers(int pageNumber=1,int pageSize=10)
         {
-            var customers = await _customerRepository.GetAllCustomersAsync();
-            return customers.Select(c => new CustomerVM
+            var customers = _customerRepository.GetAllCustomersAsync();
+            return await customers.OrderByDescending(c=>c.CreatedAt)
+                  .Select(c => new CustomerVM
             {
                 Id = c.Id,
                 FullName = c.FirstName + " " + c.LastName,
@@ -29,8 +33,8 @@ namespace MultiVendorECommerce.Areas.Admin.Services
                 UserId = c.UserId,
                 Status = c.Status
 
-            }).ToList();
-
+            }).ToPagedListAsync<CustomerVM>(pageNumber,pageSize);
+          
         }
 
         public async Task BlockCustomer(int id)

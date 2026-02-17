@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Areas.Admin.Services;
+using MultiVendorECommerce.Constants;
 using System.Threading.Tasks;
 
 namespace MultiVendorECommerce.Areas.Admin.Controllers
@@ -13,11 +15,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         {
             _orderService = orderService;
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [HttpGet]
+        [Authorize(Policy =Permissions.Admin.Order.ViewPending)]
         public async Task<IActionResult> PendingOrders()
         {
             var pendingOrders =await _orderService.GetPendingOrdersAsync();
@@ -25,6 +24,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Order.Confirm)]
+
         public async Task<IActionResult> ConfirmOrder(int orderId)
         {
             await _orderService.ConfirmOrder(orderId);
@@ -32,6 +33,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.Admin.Order.Reject)]
+
         public async Task<IActionResult> RejectOrder(int orderId)
         {
             await _orderService.RejectOrder(orderId);
@@ -39,6 +42,8 @@ namespace MultiVendorECommerce.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Admin.Order.ViewNewDetails)]
+
         public async Task<IActionResult> NewOrderDetails(int orderId)
         {
             var order =await _orderService.GetNewOrderDetails(orderId);

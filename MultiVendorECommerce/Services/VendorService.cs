@@ -43,36 +43,6 @@ namespace MultiVendorECommerce.Services
             await _vendorRepo.RejectVendorAsync(vendor);
         }
 
-        public async Task<IEnumerable<VendorUserVM>> GetPendingVendorsAsync()
-        {
-            return (await _vendorRepo.GetAllVendorsAsync()).Where(v=>v.VendorStatus==VendorStatus.Pending)
-                .Select(v=>new VendorUserVM
-                {
-                    Id = v.Id,
-                    userId=v.User.Id,
-                    Email = v.User.Email,
-                    StoreName = v.StoreName,
-                    Name = v.User.UserName,
-                    vendorStatus = v.VendorStatus,
-                    CreatedAt = v.CreatedAt
-                   
-                });
-        }
-        public async Task<IEnumerable<VendorUserVM>> GetApprovedVendorsAsync()
-        {
-            return (await _vendorRepo.GetAllVendorsAsync()).Where(v => v.VendorStatus == VendorStatus.Approved)
-                .Select(v => new VendorUserVM
-                {
-                    Id = v.Id,
-                    userId = v.User.Id,
-                    Email = v.User.Email,
-                    StoreName = v.StoreName,
-                    Name = v.User.UserName,
-                    vendorStatus = v.VendorStatus,
-                    CreatedAt = v.CreatedAt
-
-                });
-        }
 
         public async Task ApproveVendor(int Id)
         {
