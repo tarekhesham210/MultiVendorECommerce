@@ -1,0 +1,14 @@
+﻿.offer img {
+  position: absolute;
+  max-width: 50%;
+  max-height: 90%;
+  bottom: 0;
+}
+
+.offer .text-md-right img {
+  left: 0;
+}
+
+.offer .text-md-left img {
+  right: 0;
+}

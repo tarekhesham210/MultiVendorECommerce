@@ -24,9 +24,10 @@
     <link href="~/customer-assets/lib/owlcarousel/assets/owl.carousel.css" rel="stylesheet" />
     <link href="~/customer-assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="~/customer-assets/css/style.css" rel="stylesheet" />
-    <link href="~/customer-assets/css/style.min.css" rel="stylesheet" />
+    <!-- Customer Area Styles -->
+    <link href="~/customer-assets/css/base/customer-bootstrap.css" rel="stylesheet" />
+    <link href="~/customer-assets/css/layout/customer-layout.css" rel="stylesheet" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 
 <body>

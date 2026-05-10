@@ -39,21 +39,6 @@ namespace MultiVendorECommerce.Data
             
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDb).Assembly);
         }
-
-
-        
-
-        public DbSet<MultiVendorECommerce.Areas.Vendor.ViewModels.NewOrderItemVM>? NewOrderItemVM { get; set; }
-
-
-        
-
-        public DbSet<MultiVendorECommerce.Areas.Admin.ViewModels.OrderDetailsVM>? OrderDetailsVM { get; set; }
-
-
-        
-
-        public DbSet<MultiVendorECommerce.Areas.Admin.ViewModels.VendorDetailsVM>? VendorDetailsVM { get; set; }
     }
     
 }
